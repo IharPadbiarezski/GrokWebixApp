@@ -2,7 +2,7 @@ const ObjectID = require('mongodb').ObjectID;
 
 module.exports = function(app, db) {
 
-    app.get('/userdata/:id', (req, res) => {
+    app.get('/api/v1/userdata/:id', (req, res) => {
         const id = req.params.id;
         const details = {'_id': new ObjectID(id)};
         db.collection('userdata').findOne(details, (err, item) => {
@@ -14,7 +14,7 @@ module.exports = function(app, db) {
         })
     });
 
-    app.delete('/userdata/:id', (req, res) => {
+    app.delete('/api/v1/userdata/:id', (req, res) => {
         const id = req.params.id;
         const details = {'_id': new ObjectID(id)};
         db.collection('userdata').remove(details, (err, item) => {
@@ -26,7 +26,7 @@ module.exports = function(app, db) {
         })
     });
 
-    app.get('/userdata/', (req, res) => {
+    app.get('/api/v1/userdata/', (req, res) => {
         db.collection('userdata').find().toArray((err, items) => {
             if (err) {
                 res.send({'error': 'An error has occured'});
@@ -37,7 +37,7 @@ module.exports = function(app, db) {
     });
 
 
-    app.post('/userdata', (req, res) => {
+    app.post('/api/v1/userdata', (req, res) => {
         const userData = {
             goal: req.body.goal,
             userId: req.body.userId,
@@ -55,7 +55,7 @@ module.exports = function(app, db) {
         });
     });
 
-    app.put('/userdata/:id', (req, res) => {
+    app.put('/api/v1/userdata/:id', (req, res) => {
         const id = req.params.id;
         const details = {'_id': new ObjectID(id)};
         const userData = {

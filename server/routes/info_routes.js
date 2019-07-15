@@ -2,7 +2,7 @@ const ObjectID = require('mongodb').ObjectID;
 
 module.exports = function(app, db) {
 
-    app.get('/info/:id', (req, res) => {
+    app.get('/api/v1/info/:id', (req, res) => {
         const id = req.params.id;
         const details = {'_id': new ObjectID(id)};
         db.collection('info').findOne(details, (err, item) => {
@@ -14,7 +14,7 @@ module.exports = function(app, db) {
         })
     });
 
-    app.delete('/info/:id', (req, res) => {
+    app.delete('/api/v1/info/:id', (req, res) => {
         const id = req.params.id;
         const details = {'_id': new ObjectID(id)};
         db.collection('info').remove(details, (err, item) => {
@@ -26,7 +26,7 @@ module.exports = function(app, db) {
         })
     });
 
-    app.get('/info/', (req, res) => {
+    app.get('/api/v1/info/', (req, res) => {
         db.collection('info').find().toArray((err, items) => {
             if (err) {
                 res.send({'error': 'An error has occured'});
@@ -37,7 +37,7 @@ module.exports = function(app, db) {
     });
 
 
-    app.post('/info', (req, res) => {
+    app.post('/api/v1/info', (req, res) => {
         const info = {
             song: req.body.song,
             car: req.body.car,
@@ -55,7 +55,7 @@ module.exports = function(app, db) {
         });
     });
 
-    app.put('/info/:id', (req, res) => {
+    app.put('/api/v1/info/:id', (req, res) => {
         const id = req.params.id;
         const details = {'_id': new ObjectID(id)};
         const info = {
