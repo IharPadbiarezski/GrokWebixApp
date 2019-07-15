@@ -1,4 +1,7 @@
 export const users = new webix.DataCollection({
+	scheme: {
+		$init: (obj) => { obj.id = obj._id; console.log(obj.id)}
+	},
 	url: "http://localhost:3000/users/",
 	save: "rest->http://localhost:3000/users/"
 });

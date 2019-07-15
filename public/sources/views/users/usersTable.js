@@ -2,6 +2,7 @@ import {JetView} from "webix-jet";
 import {users} from "../../models/users";
 import {genders} from "../../models/genders";
 import UsersWindow from "./usersWindow";
+import CommonColumns from "../common/commonColumns";
 
 export default class UsersTable extends JetView {
 	config() {
@@ -9,14 +10,7 @@ export default class UsersTable extends JetView {
 			view: "datatable",
 			scroll: "auto",
 			columns: [
-				{
-					id: "isActive",
-					header: "Available",
-					template: "{common.checkbox()}",
-					checkValue: "Available",
-					uncheckValue: "Unavailable",
-					sort: "string"
-				},
+				CommonColumns.getCheckBoxColumn("isActive", "Access", "Available", "Unavailable"),
 				{
 					id: "name",
 					header: ["Full Name", {content: "textFilter"}],
@@ -42,13 +36,8 @@ export default class UsersTable extends JetView {
 					template: obj => `$${obj.balance}`,
 					sort: "int"
 				},
-				{
-					id: "edit",
-					template: "{common.editIcon()}",
-					width: 60
-				}
+				CommonColumns.getEditColumn(60)
 			],
-
 			onClick: {
 				"wxi-pencil": (e, id) => {
 					const item = this.getRoot().getItem(id);

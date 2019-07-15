@@ -1,6 +1,6 @@
 import {JetView} from "webix-jet";
 import {users} from "../models/users";
-import {relatedUsersData} from "../models/relatetedData"
+import {userData} from "../models/userData";
 
 export default class UserList extends JetView {
 	config() {
@@ -15,9 +15,9 @@ export default class UserList extends JetView {
 			template: "#name#",
 			on: {
 				onAfterSelect: (id) => {
-					relatedUsersData.waitData.then(() => {
-						if (id && relatedUsersData.exists(id)) {
-							relatedUsersData.data.filter(obj => obj.userId.toString() === id.toString());
+					userData.waitData.then(() => {
+						if (id && userData.exists(id)) {
+							userData.data.filter(obj => obj.userId.toString() === id.toString());
 						}
 					});
 				}
@@ -30,8 +30,8 @@ export default class UserList extends JetView {
 	}
 
 	urlChange() {
-		relatedUsersData.waitData.then(() => {
-			const id = relatedUsersData.getFirstId();
+		userData.waitData.then(() => {
+			const id = userData.getFirstId();
 			if (id) {
 				this.$$("list").select(id);
 			}

@@ -1,5 +1,5 @@
 import {JetView} from "webix-jet";
-import {usersInfo} from "../models/usersInfo";
+import {info} from "../models/info";
 
 export default class UsersTable extends JetView {
 	config() {
@@ -44,6 +44,6 @@ export default class UsersTable extends JetView {
 	}
 
 	init(view) {
-		view.sync(usersInfo);
+		view.sync(info);
 	}
 }

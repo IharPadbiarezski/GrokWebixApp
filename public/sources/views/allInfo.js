@@ -1,6 +1,6 @@
 import {JetView} from "webix-jet";
 import UserList from "./userList";
-import {relatedUsersData} from "../models/relatetedData";
+import {userData} from "../models/userData";
 import UsersTable from "./users/usersTable";
 
 export default class AllInfoView extends JetView {
@@ -53,6 +53,6 @@ export default class AllInfoView extends JetView {
 	}
 
 	init() {
-		this.$$("relatedUserTable").sync(relatedUsersData);
+		this.$$("relatedUserTable").sync(userData);
 	}
 }
