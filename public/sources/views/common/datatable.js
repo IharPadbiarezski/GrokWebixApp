@@ -1,11 +1,12 @@
 import {JetView} from "webix-jet";
 
 export default class CommonDataTable extends JetView {
-	constructor(app, name, data, checkBoxId, checkValue, uncheckValue, formUI) {
+	constructor(app, name, data, checkBoxId, checkValue, checkBoxHeader, uncheckValue, formUI) {
 		super(app, name);
 		this.tdata = data;
 		this.checkBoxId = checkBoxId;
 		this.checkValue = checkValue;
+		this.checkBoxHeader = checkBoxHeader;
 		this.uncheckValue = uncheckValue;
 		this.formUI = formUI;
 
@@ -19,7 +20,7 @@ export default class CommonDataTable extends JetView {
 			columns: [
 				{
 					id: this.checkBoxId,
-					header: "",
+					header: this.checkBoxHeader,
 					template: "{common.checkbox()}",
 					width: 40,
 					checkValue: this.checkValue,
