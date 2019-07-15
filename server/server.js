@@ -14,7 +14,6 @@ client.connect((err, database) => {
         return console.log(err)
     }
     require('./routes')(app, database);
-    // client.close();
     app.listen(port, () => {
         console.log(`App listening on port ${port}!`);
     });
