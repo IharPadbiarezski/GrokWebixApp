@@ -36,7 +36,7 @@ export default class UsersTable extends JetView {
 					template: obj => `$${obj.balance}`,
 					sort: "int"
 				},
-				CommonColumns.getEditColumn(60)
+				CommonColumns.getEditColumn()
 			],
 			onClick: {
 				"wxi-pencil": (e, id) => {
