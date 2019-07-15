@@ -1,7 +1,7 @@
 import {JetView} from "webix-jet";
 
 export default class CommonDataTable extends JetView {
-	constructor(app, name, data, checkBoxId, checkValue, checkBoxHeader, uncheckValue, formUI) {
+	constructor(app, name, data, checkBoxId, checkValue, checkBoxHeader, uncheckValue, itemName, formUI) {
 		super(app, name);
 		this.tdata = data;
 		this.checkBoxId = checkBoxId;
@@ -9,7 +9,7 @@ export default class CommonDataTable extends JetView {
 		this.checkBoxHeader = checkBoxHeader;
 		this.uncheckValue = uncheckValue;
 		this.formUI = formUI;
-
+		this.itemNameToDelete = itemName;
 	}
 
 	config() {
@@ -41,7 +41,7 @@ export default class CommonDataTable extends JetView {
 			onClick: {
 				"wxi-trash": (e, id) => {
 					webix.confirm({
-						text: "The activity will be deleted. Deleting cannot be undone... <br/> Are you sure?",
+						text: `The ${this.itemNameToDelete} will be deleted. Deleting cannot be undone... <br/> Are you sure?`,
 						ok: "OK",
 						cancel: "Cancel"
 					}).then((res) => {
