@@ -5,7 +5,7 @@ export default class UsersTable extends JetView {
 	config() {
 		return {
 			view: "datatable",
-			scroll: "auto",
+			scroll: "y",
 			editable: true,
 			editaction: "dblclick",
 			columns: [
@@ -13,31 +13,36 @@ export default class UsersTable extends JetView {
 					id: "song",
 					header: "Song",
 					fillspace: true,
-					editor: "text"
+					editor: "text",
+					sort: "string"
 				},
 				{
 					id: "car",
 					header: "Car",
 					fillspace: true,
-					editor: "text"
+					editor: "text",
+					sort: "string"
 				},
 				{
 					id: "book",
 					header: "Book",
 					fillspace: true,
-					editor: "text"
+					editor: "text",
+					sort: "string"
 				},
 				{
 					id: "movie",
 					header: "Movie",
 					fillspace: true,
-					editor: "text"
+					editor: "text",
+					sort: "string"
 				},
 				{
 					id: "drink",
 					header: "Drink",
 					fillspace: true,
-					editor: "text"
+					editor: "text",
+					sort: "string"
 				}
 			]
 		};

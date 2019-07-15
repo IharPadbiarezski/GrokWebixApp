@@ -22,7 +22,7 @@ export default class UsersTable extends JetView {
 					header: ["Gender", {content: "selectFilter"}],
 					collection: genders,
 					fillspace: true,
-					sort: "select"
+					sort: "string"
 				},
 				{
 					id: "company",

@@ -15,11 +15,12 @@ export default class UserList extends JetView {
 			template: "#name#",
 			on: {
 				onAfterSelect: (id) => {
-					userData.waitData.then(() => {
-						if (id && userData.exists(id)) {
-							userData.data.filter(obj => obj.userId.toString() === id.toString());
-						}
-					});
+					this.app.callEvent("userinfo:show", [id]);
+					// userData.waitData.then(() => {
+					// 	if (id && userData.exists(id)) {
+					// 		userData.data.filter(obj => obj.userId.toString() === id.toString());
+					// 	}
+					// });
 				}
 			}
 		};
@@ -30,11 +31,11 @@ export default class UserList extends JetView {
 	}
 
 	urlChange() {
-		userData.waitData.then(() => {
-			const id = userData.getFirstId();
-			if (id) {
-				this.$$("list").select(id);
-			}
-		});
+		// userData.waitData.then(() => {
+		// 	const id = userData.getFirstId();
+		// 	if (id) {
+		// 		this.$$("list").select(id);
+		// 	}
+		// });
 	}
 }
