@@ -56,7 +56,7 @@ export default class ContactForm extends JetView {
 			x: 0,
 			y: 0,
 			dx: 1,
-			dy: 2
+			dy: 6
 		};
 
 		const moreInfo = {
@@ -111,9 +111,31 @@ export default class ContactForm extends JetView {
 			x: 1,
 			y: 0,
 			dx: 1,
-			dy: 2
+			dy: 6
 		};
 
+		const fileUploader = {
+			rows: [
+				{
+					view: "uploader",
+					value: "Upload file",
+					name: "files",
+					link: "filelist",
+					upload: "https://docs.webix.com/samples/server/upload"
+				},
+				{
+					view: "list",
+					id: "filelist",
+					type: "uploader",
+					autoheight: true,
+					borderless: true
+				}
+			],
+			x: 0,
+			y: 6,
+			dx: 1,
+			dy: 3
+		};
 
 		const buttons = {
 			cols: [
@@ -128,6 +150,7 @@ export default class ContactForm extends JetView {
 						if (this.form.validate()) {
 							const values = this.form.getValues();
 							users.add(values);
+							webix.message({type: "success", text: "Users is added"});
 							this.clearForm();
 						}
 					}
@@ -145,9 +168,9 @@ export default class ContactForm extends JetView {
 				}
 			],
 			x: 0,
-			y: 2,
-			dx: 3,
-			dy: 0.25
+			y: 9,
+			dx: 2,
+			dy: 1
 		};
 
 		return {
@@ -164,18 +187,12 @@ export default class ContactForm extends JetView {
 					rows: [
 						{
 							view: "gridlayout",
-							gridColumns: 3,
-							gridRows: 2.25,
+							gridColumns: 2,
+							gridRows: 10,
 							cells: [
 								mainInfo,
 								moreInfo,
-								{
-									template: "Square",
-									x: 2,
-									y: 0,
-									dx: 2,
-									dy: 1
-								},
+								fileUploader,
 								buttons
 							]
 
