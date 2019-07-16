@@ -120,11 +120,16 @@ export default class ContactForm extends JetView {
 				{
 					view: "button",
 					localId: "saveButton",
-					value: "Save",
+					value: "Add user",
 					type: "form",
 					width: 200,
-					tooltip: "Save changes",
+					tooltip: "Add user",
 					click: () => {
+						if (this.form.validate()) {
+							const values = this.form.getValues();
+							users.add(values);
+							this.clearForm();
+						}
 					}
 				},
 				{
@@ -135,7 +140,7 @@ export default class ContactForm extends JetView {
 					width: 200,
 					tooltip: "Clear form",
 					click: () => {
-						this.form.clear();
+						this.clearForm();
 					}
 				}
 			],
@@ -175,17 +180,17 @@ export default class ContactForm extends JetView {
 							]
 
 						}
-					]
-					// rules: {
-					// 	name: webix.rules.isNotEmpty,
-					// 	eyeColor: webix.rules.isNotEmpty,
-					// 	gender: webix.rules.isNotEmpty,
-					// 	balance: webix.rules.isNumber,
-					// 	age: webix.rules.isNumber,
-					// 	company: webix.rules.isNotEmpty,
-					// 	address: webix.rules.isNotEmpty,
-					// 	email: webix.rules.isEmail
-					// }
+					],
+					rules: {
+						name: webix.rules.isNotEmpty,
+						eyeColor: webix.rules.isNotEmpty,
+						gender: webix.rules.isNotEmpty,
+						balance: webix.rules.isNumber,
+						age: webix.rules.isNumber,
+						company: webix.rules.isNotEmpty,
+						address: webix.rules.isNotEmpty,
+						email: webix.rules.isEmail
+					}
 				}
 			]
 		};
@@ -193,5 +198,10 @@ export default class ContactForm extends JetView {
 
 	init() {
 		this.form = this.$$("form");
+	}
+
+	clearForm() {
+		this.form.clear();
+		this.form.clearValidation();
 	}
 }
