@@ -1,6 +1,7 @@
 import {JetView} from "webix-jet";
 import {genders} from "../models/genders";
 import {users} from "../models/users";
+import {hideFormElements, showFormElements} from "./functions/formManipulations";
 
 export default class ContactForm extends JetView {
 	config() {
@@ -37,6 +38,7 @@ export default class ContactForm extends JetView {
 				{
 					view: "text",
 					name: "company",
+					localId: "companyField",
 					label: "Company",
 					labelWidth: 90,
 					labelPosition: "top",
@@ -46,6 +48,7 @@ export default class ContactForm extends JetView {
 				{
 					view: "text",
 					name: "balance",
+					localId: "balanceField",
 					label: "Balance",
 					labelWidth: 90,
 					labelPosition: "top",
@@ -56,7 +59,7 @@ export default class ContactForm extends JetView {
 			x: 0,
 			y: 0,
 			dx: 1,
-			dy: 6
+			dy: 7
 		};
 
 		const moreInfo = {
@@ -65,6 +68,7 @@ export default class ContactForm extends JetView {
 				{
 					view: "text",
 					name: "address",
+					localId: "addressField",
 					label: "Address",
 					labelWidth: 90,
 					labelPosition: "top",
@@ -93,6 +97,7 @@ export default class ContactForm extends JetView {
 				{
 					view: "text",
 					name: "eyeColor",
+					localId: "eyeColorField",
 					label: "Color of eyes",
 					labelWidth: 90,
 					labelPosition: "top",
@@ -111,7 +116,7 @@ export default class ContactForm extends JetView {
 			x: 1,
 			y: 0,
 			dx: 1,
-			dy: 6
+			dy: 7
 		};
 
 		const fileUploader = {
@@ -132,7 +137,53 @@ export default class ContactForm extends JetView {
 				}
 			],
 			x: 0,
-			y: 6,
+			y: 7,
+			dx: 1,
+			dy: 3
+		};
+
+		const controlCheckboxes = {
+			rows: [
+				{
+					height: 30,
+					template: "Form Controls",
+					borderless: true
+				},
+				// {
+				// 	view: "checkbox",
+				// 	// name: "additionFields",
+				// 	labelRight: "All fields",
+				// 	labelPosition: "top",
+				// 	checkValue: "Available",
+				// 	uncheckValue: "Unavailable"
+				// },
+				{
+					view: "checkbox",
+					// name: "mainFields",
+					labelRight: "Main fields",
+					labelPosition: "top",
+					checkValue: "Checked",
+					uncheckValue: "Unchecked",
+					on: {
+						onChange(newVal) {
+							const company = this.$scope.$$("companyField");
+							const address = this.$scope.$$("addressField");
+							const eyeColor = this.$scope.$$("eyeColorField");
+							const balance = this.$scope.$$("balanceField");
+
+							if (newVal === "Checked") {
+								hideFormElements(company, address, eyeColor, balance);
+							}
+							else {
+								showFormElements(company, address, eyeColor, balance);
+							}
+						}
+					}
+
+				}
+			],
+			x: 1,
+			y: 7,
 			dx: 1,
 			dy: 3
 		};
@@ -193,21 +244,22 @@ export default class ContactForm extends JetView {
 								mainInfo,
 								moreInfo,
 								fileUploader,
+								controlCheckboxes,
 								buttons
 							]
 
 						}
-					],
-					rules: {
-						name: webix.rules.isNotEmpty,
-						eyeColor: webix.rules.isNotEmpty,
-						gender: webix.rules.isNotEmpty,
-						balance: webix.rules.isNumber,
-						age: webix.rules.isNumber,
-						company: webix.rules.isNotEmpty,
-						address: webix.rules.isNotEmpty,
-						email: webix.rules.isEmail
-					}
+					]
+					// rules: {
+					// 	name: webix.rules.isNotEmpty,
+					// 	eyeColor: webix.rules.isNotEmpty,
+					// 	gender: webix.rules.isNotEmpty,
+					// 	balance: webix.rules.isNumber,
+					// 	age: webix.rules.isNumber,
+					// 	company: webix.rules.isNotEmpty,
+					// 	address: webix.rules.isNotEmpty,
+					// 	email: webix.rules.isEmail
+					// }
 				}
 			]
 		};

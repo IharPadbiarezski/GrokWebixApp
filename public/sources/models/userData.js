@@ -66,22 +66,22 @@ export const userData = new webix.DataCollection({
 			reminder: "Do some crazy stuff",
 			wish: "new car"
 		},
-		// {
-		// 	id: 9,
-		// 	goal: "Newewfw",
-		// 	userId: 7,
-		// 	hours: 1,
-		// 	reminder: "Do some",
-		// 	wish: "new car too"
-		// },
-		// {
-		// 	id: 10,
-		// 	goal: "Hi there",
-		// 	userId: 7,
-		// 	hours: 5,
-		// 	reminder: "Do some crazy stuff",
-		// 	wish: "new car"
-		// },
+		{
+			id: 9,
+			goal: "Newewfw",
+			userId: 7,
+			hours: 1,
+			reminder: "Do some",
+			wish: "new car too"
+		},
+		{
+			id: 10,
+			goal: "Hi there",
+			userId: 7,
+			hours: 5,
+			reminder: "Do some crazy stuff",
+			wish: "new car"
+		},
 		{
 			id: 11,
 			goal: "Go to Gym",
