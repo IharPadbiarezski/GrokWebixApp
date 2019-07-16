@@ -1,6 +1,6 @@
 import {JetView} from "webix-jet";
-import UserAdditionList from "./userAdditionList";
-import UserAdditionTable from "./userAdditionTable";
+import UserAdditionList from "./userTemplate";
+import UserTemplate from "./userTemplate";
 import UserFilesTable from "./userFilesTable";
 
 export default class UsersAdditionTable extends JetView {
@@ -15,8 +15,8 @@ export default class UsersAdditionTable extends JetView {
 					id: "userinfo:list"
 				},
 				{
-					value: "DataTable",
-					id: "userinfo:datatable"
+					value: "Template",
+					id: "userinfo:template"
 				},
 				{
 					value: "Files",
@@ -33,8 +33,8 @@ export default class UsersAdditionTable extends JetView {
 					$subview: UserAdditionList
 				},
 				{
-					id: "userinfo:datatable",
-					$subview: UserAdditionTable
+					id: "userinfo:template",
+					$subview: UserTemplate
 				},
 				{
 					id: "userinfo:files",
