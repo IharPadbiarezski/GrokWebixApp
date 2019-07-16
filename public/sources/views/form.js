@@ -145,8 +145,8 @@ export default class ContactForm extends JetView {
 				}
 			],
 			x: 0,
-			y: 3,
-			dx: 2,
+			y: 2,
+			dx: 3,
 			dy: 0.25
 		};
 
@@ -164,15 +164,15 @@ export default class ContactForm extends JetView {
 					rows: [
 						{
 							view: "gridlayout",
-							gridColumns: 2,
-							gridRows: 3.25,
+							gridColumns: 3,
+							gridRows: 2.25,
 							cells: [
 								mainInfo,
 								moreInfo,
 								{
 									template: "Square",
-									x: 0,
-									y: 2,
+									x: 2,
+									y: 0,
 									dx: 2,
 									dy: 1
 								},
