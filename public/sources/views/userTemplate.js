@@ -9,10 +9,11 @@ export default class UsersTemplate extends JetView {
 			localId: "template",
 			template: obj => `
 				<div class="user-info">
-					<p>Goal: ${obj.goal || "-"}</p>
-					<p>Time: ${obj.hours || "0"} hours</p>
-					<p>Reminder: ${obj.reminder || "-"}</p>
-					<p>Wish: ${obj.wish || "-"}</p>
+					<h4 class="name">${obj.name || "Here gonna be a name"}</h4>
+					<p>Goal: ${obj.goal || "Here gonna be a goal"}</p>
+					<p>Time: ${obj.hours || "Here gonna be some"} hours</p>
+					<p>Reminder: ${obj.reminder || "Here gonna be a reminder"}</p>
+					<p>Wish: ${obj.wish || "Here gonna be a wish"}</p>
 				</div>
 			`
 		};
@@ -28,12 +29,10 @@ export default class UsersTemplate extends JetView {
 			const id = this.getParam("id");
 			if (id && userData.exists(id)) {
 				let values = webix.copy(userData.getItem(id));
-				// if (values.StatusID) {
-				// 	const status = statuses.getItem(values.StatusID) || "";
-				// 	values.status = status ? status.Value : "";
-				// 	const icon = icons.getItem(status.Icon) || "";
-				// 	values.icon = icon.value || "";
-				// }
+				if (values.userId) {
+					const name = users.getItem(values.userId).name || "";
+					values.name = name || "";
+				}
 				this.$$("template").setValues(values);
 			}
 		});
