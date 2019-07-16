@@ -40,7 +40,7 @@ export default class UsersTable extends JetView {
 			],
 			on: {
 				onAfterSelect: (id) => {
-					this.app.callEvent("useradditioninfo:show", [id.row]);
+					this.show(`userAdditionInfo?id=${id.row}`);
 				}
 			}
 		};
@@ -52,16 +52,12 @@ export default class UsersTable extends JetView {
 		}
 	}
 
-	init(view) {
+	init() {
 		webix.promise.all([
 			users.waitData,
 			userData.waitData
 		]).then(() => {
-			this.$$('table').sync(userData);
-		})
-
-		this.on(this.app, "useradditioninfo:show", (id) => {
-			this.show(`/top/userdata/userinfo?id=${id}/userAdditionInfo`);
+			this.$$("table").sync(userData);
 		});
 	}
 }

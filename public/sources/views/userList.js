@@ -31,11 +31,12 @@ export default class UserList extends JetView {
 	}
 
 	urlChange() {
-		// userData.waitData.then(() => {
-		// 	const id = userData.getFirstId();
-		// 	if (id) {
-		// 		this.$$("list").select(id);
-		// 	}
-		// });
+		userData.waitData.then(() => {
+			let id = this.getParam("id") || userData.getFirstId();
+			if (id && userData.exists(id)) {
+				this.$$("list").select(id);
+			}
+			userData.data.filter(obj => obj.userId.toString() === id.toString());
+		});
 	}
 }

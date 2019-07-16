@@ -5,6 +5,6 @@ export default class UserAdditionList extends JetView {
 		return {
 			template: "Place for List",
 			css: "webix_shadow_medium app_start"
-		}
+		};
 	}
-};
+}
