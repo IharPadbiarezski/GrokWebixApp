@@ -89,5 +89,10 @@ export default class UserFilesTable extends JetView {
 	init(view) {
 		view.queryView("datatable").sync(files);
 	}
+
+	urlChange() {
+		const id = this.getParam("id");
+		files.data.filter(file => file.userId.toString() === id.toString());
+	}
 }
 
