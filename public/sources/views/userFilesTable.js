@@ -68,7 +68,7 @@ export default class UserFilesTable extends JetView {
 											name: file.name,
 											size: Math.round(file.size / 1000),
 											ChangeDate: file.file.lastModifiedDate,
-											UserID: id
+											userId: id
 										};
 										files.add(values);
 									}

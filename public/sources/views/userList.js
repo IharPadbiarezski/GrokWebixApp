@@ -32,7 +32,7 @@ export default class UserList extends JetView {
 
 	urlChange() {
 		userData.waitData.then(() => {
-			let id = this.getParam("id") || userData.getFirstId();
+			let id = this.getParam("id") || users.getFirstId();
 			if (id && userData.exists(id)) {
 				this.$$("list").select(id);
 			}

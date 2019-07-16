@@ -1,7 +1,6 @@
 import {JetView} from "webix-jet";
 import {userData} from "../models/userData";
 import {users} from "../models/users";
-import userAdditionInfo from "./userAdditionInfo";
 
 export default class UsersTable extends JetView {
 	config() {
@@ -40,7 +39,7 @@ export default class UsersTable extends JetView {
 			],
 			on: {
 				onAfterSelect: (id) => {
-					this.show(`userAdditionInfo?id=${id.row}`);
+					this.displayInfo(id.row);
 				}
 			}
 		};
@@ -49,7 +48,7 @@ export default class UsersTable extends JetView {
 				userInfoTable,
 				{$subview: true}
 			]
-		}
+		};
 	}
 
 	init() {
@@ -58,7 +57,18 @@ export default class UsersTable extends JetView {
 			userData.waitData
 		]).then(() => {
 			this.$$("table").sync(userData);
+			this.displayInfo();
+			// userData.data.filter(obj => obj.userId.toString() === id.toString());
 		});
+	}
+
+	displayInfo(id) {
+		if (id) {
+			this.show(`userAdditionInfo?id=${id}`);
+		}
+		else {
+			this.show("userAdditionInfo");
+		}
 	}
 }
 
