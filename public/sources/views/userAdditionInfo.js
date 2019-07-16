@@ -1,5 +1,5 @@
 import {JetView} from "webix-jet";
-import UserAdditionList from "./userTemplate";
+import UserAdditionList from "./userAdditionList";
 import UserTemplate from "./userTemplate";
 import UserFilesTable from "./userFilesTable";
 
