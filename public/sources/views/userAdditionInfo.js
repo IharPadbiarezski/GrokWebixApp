@@ -42,16 +42,13 @@ export default class UsersAdditionTable extends JetView {
 				}
 			]
 		};
+
 		return {
 			rows: [
 				userTabbar,
 				userTabbarElements
 			]
-		}
-	}
-
-	init(view) {
-
+		};
 	}
 }
 

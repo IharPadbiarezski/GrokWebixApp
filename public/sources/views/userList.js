@@ -16,11 +16,6 @@ export default class UserList extends JetView {
 			on: {
 				onAfterSelect: (id) => {
 					this.app.callEvent("userinfo:show", [id]);
-					// userData.waitData.then(() => {
-					// 	if (id && userData.exists(id)) {
-					// 		userData.data.filter(obj => obj.userId.toString() === id.toString());
-					// 	}
-					// });
 				}
 			}
 		};
@@ -35,6 +30,9 @@ export default class UserList extends JetView {
 			let id = this.getParam("id") || users.getFirstId();
 			if (id && userData.exists(id)) {
 				this.$$("list").select(id);
+			}
+			else {
+				id = "";
 			}
 			userData.data.filter(obj => obj.userId.toString() === id.toString());
 		});

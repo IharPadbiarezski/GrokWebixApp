@@ -126,7 +126,7 @@ export default class ContactForm extends JetView {
 					value: "Upload file",
 					name: "files",
 					link: "filelist",
-					upload: "https://docs.webix.com/samples/server/upload"
+					upload: "https:///server/upload"
 				},
 				{
 					view: "list",
@@ -149,17 +149,8 @@ export default class ContactForm extends JetView {
 					template: "Form Controls",
 					borderless: true
 				},
-				// {
-				// 	view: "checkbox",
-				// 	// name: "additionFields",
-				// 	labelRight: "All fields",
-				// 	labelPosition: "top",
-				// 	checkValue: "Available",
-				// 	uncheckValue: "Unavailable"
-				// },
 				{
 					view: "checkbox",
-					// name: "mainFields",
 					labelRight: "Main fields",
 					labelPosition: "top",
 					checkValue: "Checked",
