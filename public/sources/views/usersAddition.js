@@ -13,7 +13,7 @@ export default class AllInfoView extends JetView {
 
 	init() {
 		this.on(this.app, "userinfo:show", (id) => {
-			this.show(`/top/userdata?id=${id}/userinfo`);
+			this.show(`/top/usersAddition?id=${id}/userinfo`);
 		});
 	}
 }

@@ -1,7 +1,6 @@
 import {JetView} from "webix-jet";
 import CommonColumns from "./common/commonColumns";
 import {files} from "../models/files";
-import {users} from "../models/users";
 
 export default class UserFilesTable extends JetView {
 	config() {
