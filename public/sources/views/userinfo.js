@@ -58,7 +58,6 @@ export default class UsersTable extends JetView {
 		]).then(() => {
 			this.$$("table").sync(userData);
 			this.displayInfo();
-			// userData.data.filter(obj => obj.userId.toString() === id.toString());
 		});
 	}
 
