@@ -1,11 +1,12 @@
 const ObjectID = require('mongodb').ObjectID;
 
 module.exports = function(app, db) {
+    const DB = db.db('Grok');
 
     app.get('/api/v1/genders/:id', (req, res) => {
         const id = req.params.id;
         const details = {'_id': new ObjectID(id)};
-        db.collection('genders').findOne(details, (err, item) => {
+        DB.collection('genders').findOne(details, (err, item) => {
             if (err) {
                 res.send({'error': 'An error has occured'});
             } else {
@@ -17,7 +18,7 @@ module.exports = function(app, db) {
     app.delete('/api/v1/genders/:id', (req, res) => {
         const id = req.params.id;
         const details = {'_id': new ObjectID(id)};
-        db.collection('genders').remove(details, (err, item) => {
+        DB.collection('genders').remove(details, (err, item) => {
             if (err) {
                 res.send({'error': 'An error has occured'});
             } else {
@@ -27,7 +28,11 @@ module.exports = function(app, db) {
     });
 
     app.get('/api/v1/genders/', (req, res) => {
-        db.collection('genders').find().toArray((err, items) => {
+        DB.collection('genders').find().toArray((err, items) => {
+            items.forEach((item) => {
+                item.id = item._id;
+            });
+
             if (err) {
                 res.send({'error': 'An error has occured'});
             } else {
@@ -43,7 +48,7 @@ module.exports = function(app, db) {
             value: req.body.value
         };
 
-        db.collection('genders').insert(gender, (err, result) => {
+        DB.collection('genders').insert(gender, (err, result) => {
             if (err) {
                 res.send({'error': 'An error has occured'});
             } else {
@@ -59,7 +64,7 @@ module.exports = function(app, db) {
             value: req.body.value
         };
         
-        db.collection('genders').update(details, gender, (err, item) => {
+        DB.collection('genders').update(details, gender, (err, item) => {
             if (err) {
                 res.send({'error': 'An error has occured'});
             } else {

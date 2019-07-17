@@ -1,11 +1,12 @@
 const ObjectID = require('mongodb').ObjectID;
 
 module.exports = function(app, db) {
+    const DB = db.db('Grok');
 
     app.get('/api/v1/userdata/:id', (req, res) => {
         const id = req.params.id;
         const details = {'_id': new ObjectID(id)};
-        db.collection('userdata').findOne(details, (err, item) => {
+        DB.collection('userdata').findOne(details, (err, item) => {
             if (err) {
                 res.send({'error': 'An error has occured'});
             } else {
@@ -17,7 +18,7 @@ module.exports = function(app, db) {
     app.delete('/api/v1/userdata/:id', (req, res) => {
         const id = req.params.id;
         const details = {'_id': new ObjectID(id)};
-        db.collection('userdata').remove(details, (err, item) => {
+        DB.collection('userdata').remove(details, (err, item) => {
             if (err) {
                 res.send({'error': 'An error has occured'});
             } else {
@@ -26,8 +27,12 @@ module.exports = function(app, db) {
         })
     });
 
-    app.get('/api/v1/userdata/', (req, res) => {
-        db.collection('userdata').find().toArray((err, items) => {
+    app.get('/api/v1/userdata', (req, res) => {
+        DB.collection('userdata').find().toArray((err, items) => {
+            items.forEach((item) => {
+                item.id = item._id;
+            });
+
             if (err) {
                 res.send({'error': 'An error has occured'});
             } else {
@@ -46,7 +51,7 @@ module.exports = function(app, db) {
             wish: req.body.wish
         };
 
-        db.collection('userdata').insert(userData, (err, result) => {
+        DB.collection('userdata').insert(userData, (err, result) => {
             if (err) {
                 res.send({'error': 'An error has occured'});
             } else {
@@ -66,7 +71,7 @@ module.exports = function(app, db) {
             wish: req.body.wish
         };
         
-        db.collection('userdata').update(details, userData, (err, item) => {
+        DB.collection('userdata').update(details, userData, (err, item) => {
             if (err) {
                 res.send({'error': 'An error has occured'});
             } else {

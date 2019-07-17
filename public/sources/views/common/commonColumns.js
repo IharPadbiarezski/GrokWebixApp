@@ -1,15 +1,14 @@
 export default class CommonColumns {
-
-	static getCheckBoxColumn(checkBoxId, checkBoxHeader, checkValue, uncheckValue) {
+	static getCheckBoxColumn(checkboxId, checkboxName, checkName, uncheckName) {
 		return {
-			id: checkBoxId,
-			header: checkBoxHeader,
+			id: checkboxId,
+			header: checkboxName,
 			template: "{common.checkbox()}",
-			width: 90,
-			checkValue: checkValue,
-			uncheckValue: uncheckValue,
+			width: 80,
+			checkValue: checkName,
+			uncheckValue: uncheckName,
 			sort: "string"
-		}
+		};
 	}
 
 	static getEditColumn() {
@@ -17,7 +16,7 @@ export default class CommonColumns {
 			id: "",
 			template: "{common.editIcon()}",
 			width: 60
-		}
+		};
 	}
 
 	static getDeleteColumn() {
@@ -25,6 +24,6 @@ export default class CommonColumns {
 			id: "",
 			template: "{common.trashIcon()}",
 			width: 60
-		}
+		};
 	}
 }

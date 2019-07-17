@@ -1,11 +1,12 @@
 const ObjectID = require('mongodb').ObjectID;
 
 module.exports = function(app, db) {
+    const DB = db.db('Grok');
 
     app.get('/api/v1/users/:id', (req, res) => {
         const id = req.params.id;
         const details = {'_id': new ObjectID(id)};
-        db.collection('users').findOne(details, (err, item) => {
+        DB.collection('users').findOne(details, (err, item) => {
             if (err) {
                 res.send({'error': 'An error has occured'});
             } else {
@@ -17,7 +18,7 @@ module.exports = function(app, db) {
     app.delete('/api/v1/users/:id', (req, res) => {
         const id = req.params.id;
         const details = {'_id': new ObjectID(id)};
-        db.collection('users').remove(details, (err, item) => {
+        DB.collection('users').remove(details, (err, item) => {
             if (err) {
                 res.send({'error': 'An error has occured'});
             } else {
@@ -27,7 +28,11 @@ module.exports = function(app, db) {
     });
 
     app.get('/api/v1/users/', (req, res) => {
-        db.collection('users').find().toArray((err, items) => {
+        DB.collection('users').find().toArray((err, items) => {
+            items.forEach((item) => {
+                item.id = item._id;
+            });
+
             if (err) {
                 res.send({'error': 'An error has occured'});
             } else {
@@ -51,7 +56,7 @@ module.exports = function(app, db) {
             address: req.body.address
         };
 
-        db.collection('users').insert(user, (err, result) => {
+        DB.collection('users').insert(user, (err, result) => {
             if (err) {
                 res.send({'error': 'An error has occured'});
             } else {
@@ -63,6 +68,8 @@ module.exports = function(app, db) {
     app.put('/api/v1/users/:id', (req, res) => {
         const id = req.params.id;
         const details = {'_id': new ObjectID(id)};
+        console.log(req);
+        console.log(res)
         const user = {
             name: req.body.name,
             gender: req.body.gender,
