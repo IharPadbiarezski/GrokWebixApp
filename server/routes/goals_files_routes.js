@@ -3,10 +3,10 @@ const ObjectID = require('mongodb').ObjectID;
 module.exports = function(app, db) {
     const DB = db.db('Grok');
 
-    app.get('/api/v1/users/:id', (req, res) => {
+    app.get('/api/v1/goalsfiles/:id', (req, res) => {
         const id = req.params.id;
         const details = {'_id': new ObjectID(id)};
-        DB.collection('users').findOne(details, (err, item) => {
+        DB.collection('goalsfiles').findOne(details, (err, item) => {
             if (err) {
                 res.send({'error': 'An error has occured'});
             } else {
@@ -15,10 +15,11 @@ module.exports = function(app, db) {
         })
     });
 
-    app.delete('/api/v1/users/:id', (req, res) => {
+    app.delete('/api/v1/goalsfiles/:id', (req, res) => {
         const id = req.params.id;
         const details = {'_id': new ObjectID(id)};
-        DB.collection('users').remove(details, (err, item) => {
+        DB.collection('goalsfiles').remove(details, (err, item) => {
+            console.log(details)
             if (err) {
                 res.send({'error': 'An error has occured'});
             } else {
@@ -27,8 +28,8 @@ module.exports = function(app, db) {
         })
     });
 
-    app.get('/api/v1/users/', (req, res) => {
-        DB.collection('users').find().toArray((err, items) => {
+    app.get('/api/v1/goalsfiles/', (req, res) => {
+        DB.collection('goalsfiles').find().toArray((err, items) => {
             if (err) {
                 res.send({'error': 'An error has occured'});
             } else {
@@ -41,21 +42,15 @@ module.exports = function(app, db) {
     });
 
 
-    app.post('/api/v1/users', (req, res) => {
-        const user = {
+    app.post('/api/v1/goalsfiles', (req, res) => {
+        const goalsfile = { 
             name: req.body.name,
-            gender: req.body.gender,
-            isActive: req.body.isActive,
-            balance: req.body.balance,
-            age: req.body.age,
-            eyeColor: req.body.eyeColor,
-            company: req.body.company,
-            email: req.body.email,
-            phone: req.body.phone,
-            address: req.body.address
+            size: req.body.size,
+            changeDate: req.body.changeDate,
+            goalId: req.body.goalId
         };
-
-        DB.collection('users').insert(user, (err, result) => {
+        
+        DB.collection('goalsfiles').insert(goalsfile, (err, result) => {
             if (err) {
                 res.send({'error': 'An error has occured'});
             } else {
@@ -65,27 +60,21 @@ module.exports = function(app, db) {
         });
     });
 
-    app.put('/api/v1/users/:id', (req, res) => {
+    app.put('/api/v1/goalsfiles/:id', (req, res) => {
         const id = req.params.id;
         const details = {'_id': new ObjectID(id)};
-        const user = {
+        const goalsfile = {
             name: req.body.name,
-            gender: req.body.gender,
-            isActive: req.body.isActive,
-            balance: req.body.balance,
-            age: req.body.age,
-            eyeColor: req.body.eyeColor,
-            company: req.body.company,
-            email: req.body.email,
-            phone: req.body.phone,
-            address: req.body.address
+            size: req.body.size,
+            changeDate: req.body.changeDate,
+            goalId: req.body.goalId
         };
-
-        DB.collection('users').update(details, user, (err, item) => {
+        
+        DB.collection('goalsfiles').update(details, goalsfile, (err, item) => {
             if (err) {
                 res.send({'error': 'An error has occured'});
             } else {
-                res.send(user);
+                res.send(goalsfile);
             }
         })
     });

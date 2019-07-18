@@ -1,6 +1,6 @@
 import {JetView} from "webix-jet";
 import CommonColumns from "./common/commonColumns";
-import {files} from "../models/files";
+import {goalsFiles} from "../models/goalsFiles";
 
 export default class UserFilesTable extends JetView {
 	config() {
@@ -18,7 +18,7 @@ export default class UserFilesTable extends JetView {
 							sort: "string"
 						},
 						{
-							id: "ChangeDate",
+							id: "changeDate",
 							header: "Change date",
 							fillspace: true,
 							sort: "date",
@@ -42,7 +42,7 @@ export default class UserFilesTable extends JetView {
 								cancel: "Cancel"
 							}).then(() => {
 								if (id) {
-									files.remove(id);
+									goalsFiles.remove(id);
 								}
 							});
 							return false;
@@ -61,15 +61,15 @@ export default class UserFilesTable extends JetView {
 							autosend: false,
 							on: {
 								onBeforeFileAdd: (file) => {
-									let id = this.getParam("id", true);
+									let id = this.getParam("id");
 									if (id) {
 										const values = {
 											name: file.name,
 											size: Math.round(file.size / 1000),
-											ChangeDate: file.file.lastModifiedDate,
-											userId: id
+											changeDate: file.file.lastModifiedDate,
+											goalId: id
 										};
-										files.add(values);
+										goalsFiles.add(values);
 									}
 									return false;
 								},
@@ -86,12 +86,12 @@ export default class UserFilesTable extends JetView {
 	}
 
 	init(view) {
-		view.queryView("datatable").sync(files);
+		view.queryView("datatable").sync(goalsFiles);
 	}
 
 	urlChange() {
 		const id = this.getParam("id");
-		files.data.filter(file => file.userId.toString() === id.toString());
+		goalsFiles.data.filter(file => file.goalId === id);
 	}
 }
 

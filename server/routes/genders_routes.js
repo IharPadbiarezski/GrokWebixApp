@@ -29,13 +29,12 @@ module.exports = function(app, db) {
 
     app.get('/api/v1/genders/', (req, res) => {
         DB.collection('genders').find().toArray((err, items) => {
-            items.forEach((item) => {
-                item.id = item._id;
-            });
-
             if (err) {
                 res.send({'error': 'An error has occured'});
             } else {
+                items.forEach((item) => {
+                    item.id = item._id;
+                });
                 res.send(items);
             }
         })
@@ -52,6 +51,7 @@ module.exports = function(app, db) {
             if (err) {
                 res.send({'error': 'An error has occured'});
             } else {
+                result.ops[0].id = result.insertedIds[0];
                 res.send(result.ops[0]);
             }
         });
