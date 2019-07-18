@@ -1,6 +1,7 @@
 import {JetView} from "webix-jet";
 import {genders} from "../models/genders";
 import {users} from "../models/users";
+import {userFiles} from "../models/userFiles";
 import {hideFormElements, showFormElements} from "./functions/formManipulations";
 
 export default class ContactForm extends JetView {
@@ -126,7 +127,21 @@ export default class ContactForm extends JetView {
 					value: "Upload file",
 					name: "files",
 					link: "filelist",
-					upload: "https:///server/upload"
+					autosend: false,
+					upload: "https:///server/upload",
+					on: {
+						onBeforeFileAdd: (file) => {
+							const values = {
+								name: file.name,
+								size: Math.round(file.size / 1000),
+								changeDate: file.file.lastModifiedDate
+							};
+							userFiles.add(values);
+						},
+						onFileUploadError: () => {
+							webix.message("Upload failed.");
+						}
+					}
 				},
 				{
 					view: "list",

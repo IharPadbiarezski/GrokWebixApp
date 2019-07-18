@@ -28,22 +28,46 @@ module.exports = function(app, db) {
     });
 
     app.get('/api/v1/info', (req, res) => {
-        DB.collection('info').find().toArray((err, items) => {    
-            if (err) {
-                res.send({'error': 'An error has occured'});
-            } else {
-                items.forEach((item) => {
-                    item.id = item._id;
-                });
-                if ( req.query.count && req.query.start) {
-                    const count = +req.query.count;
-                    const startIndex = +req.query.start + 1;
-                    const endIndex = count + startIndex;
-                    items = items.slice(startIndex, endIndex);
-                }
-                res.send(items);
+
+         //&sort[song]=asc
+        if (req.query.sort) {
+            console.log(req.query)
+            const sortField = Object.keys(req.query.sort)[0];
+            if (req.query.sort[sortField] === 'asc') {
+                req.query.sort[sortField] = 1
+            } else if(req.query.sort[sortField] === 'desc') {
+                req.query.sort[sortField] = -1
             }
-        })
+            DB.collection('info').find().sort( req.query.sort ).toArray((err, items) => { 
+                if (err) {
+                    res.send({'error': 'An error has occured'});
+                } else {
+                    items.forEach((item) => {
+                        item.id = item._id;
+                    });
+                    res.send(items);
+                }
+            });
+        }
+        else {
+            DB.collection('info').find().toArray((err, items) => {    
+                if (err) {
+                    res.send({'error': 'An error has occured'});
+                } else {
+                    items.forEach((item) => {
+                        item.id = item._id;
+                    });
+                    if ( req.query.count && req.query.start) {
+                        const count = +req.query.count;
+                        const startIndex = +req.query.start + 1;
+                        const endIndex = count + startIndex;
+                        items = items.slice(startIndex, endIndex);
+                    }
+                   
+                    res.send(items);
+                }
+            })
+        }
     });
 
     app.post('/api/v1/info', (req, res) => {

@@ -8,7 +8,7 @@ webix.proxy.idata = {
 		this._attachHandlers(view);
 
 		url = this.source;
-		url += url.indexOf("?") == -1 ? "?" : "&";
+		url += url.indexOf("?") === -1 ? "?" : "&";
 
 		let count = params ? params.count : view.config.datafetch || 0;
 		let start = params ? params.start : 0;
@@ -56,7 +56,7 @@ export default class UsersTable extends JetView {
 			editable: true,
 			editaction: "dblclick",
 			datafetch: 20,
-			url: `idata->${url}`,
+			url: "http://localhost:3000/api/v1/info/",
 			save: `rest->${url}`,
 			columns: [
 				{
@@ -64,35 +64,35 @@ export default class UsersTable extends JetView {
 					header: "Song",
 					fillspace: true,
 					editor: "text",
-					sort: "string"
+					sort: "server"
 				},
 				{
 					id: "car",
 					header: "Car",
 					fillspace: true,
 					editor: "text",
-					sort: "string"
+					sort: "server"
 				},
 				{
 					id: "book",
 					header: "Book",
 					fillspace: true,
 					editor: "text",
-					sort: "string"
+					sort: "server"
 				},
 				{
 					id: "movie",
 					header: "Movie",
 					fillspace: true,
 					editor: "text",
-					sort: "string"
+					sort: "server"
 				},
 				{
 					id: "drink",
 					header: "Drink",
 					fillspace: true,
 					editor: "text",
-					sort: "string"
+					sort: "server"
 				}
 			]
 		};
