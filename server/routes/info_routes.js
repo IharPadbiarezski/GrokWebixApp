@@ -28,20 +28,23 @@ module.exports = function(app, db) {
     });
 
     app.get('/api/v1/info', (req, res) => {
-        // setTimeout(() => {
-            DB.collection('info').find().toArray((err, items) => {    
-                if (err) {
-                    res.send({'error': 'An error has occured'});
-                } else {
-                    items.forEach((item) => {
-                        item.id = item._id;
-                    });
-                    res.send(items);
+        DB.collection('info').find().toArray((err, items) => {    
+            if (err) {
+                res.send({'error': 'An error has occured'});
+            } else {
+                items.forEach((item) => {
+                    item.id = item._id;
+                });
+                if ( req.query.count && req.query.start) {
+                    const count = +req.query.count;
+                    const startIndex = +req.query.start + 1;
+                    const endIndex = count + startIndex;
+                    items = items.slice(startIndex, endIndex);
                 }
-            })
-        // }, 5000)
+                res.send(items);
+            }
+        })
     });
-
 
     app.post('/api/v1/info', (req, res) => {
         const info = {
