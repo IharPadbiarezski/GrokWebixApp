@@ -28,10 +28,7 @@ module.exports = function(app, db) {
     });
 
     app.get('/api/v1/info', (req, res) => {
-
-         //&sort[song]=asc
         if (req.query.sort) {
-            console.log(req.query)
             const sortField = Object.keys(req.query.sort)[0];
             if (req.query.sort[sortField] === 'asc') {
                 req.query.sort[sortField] = 1
@@ -42,31 +39,63 @@ module.exports = function(app, db) {
                 if (err) {
                     res.send({'error': 'An error has occured'});
                 } else {
-                    items.forEach((item) => {
-                        item.id = item._id;
-                    });
-                    res.send(items);
-                }
-            });
-        }
-        else {
-            DB.collection('info').find().toArray((err, items) => {    
-                if (err) {
-                    res.send({'error': 'An error has occured'});
-                } else {
-                    items.forEach((item) => {
-                        item.id = item._id;
-                    });
+
+                    let finalData;
+                    let itemsPackage;
                     if ( req.query.count && req.query.start) {
                         const count = +req.query.count;
                         const startIndex = +req.query.start + 1;
                         const endIndex = count + startIndex;
-                        items = items.slice(startIndex, endIndex);
+                        finalData = {
+                            "pos": +req.query.start,
+                            "total_count": items.length
+                        }
+                        itemsPackage = items.slice(startIndex, endIndex);
+                        itemsPackage.forEach((item) => {
+                            item.id = item._id;
+                        });
+                        finalData.data = itemsPackage;
                     }
-                   
-                    res.send(items);
+                    res.send(finalData);
                 }
-            })
+            });
+        } else {
+            DB.collection('info').find().toArray((err, items) => { 
+                if (err) {
+                    res.send({'error': 'An error has occured'});
+                } else {
+                    let finalData;
+                    
+                    if ( req.query.count && req.query.start) {
+                        const count = +req.query.count;
+                        const startIndex = +req.query.start + 1;
+                        const endIndex = count + startIndex;
+                        finalData = {
+                            "pos": +req.query.start,
+                            "total_count": items.length
+                        }
+                        itemsPackage = items.slice(startIndex, endIndex);
+                        itemsPackage.forEach((item) => {
+                            item.id = item._id;
+                        });
+                        finalData.data = itemsPackage;
+                    } else {
+                        const count = +req.query.count;
+                        const startIndex = 1;
+                        const endIndex = count + startIndex;
+                        finalData = {
+                            "pos": +req.query.start,
+                            "total_count": items.length
+                        }
+                        items = items.slice(startIndex, endIndex);
+                        items.forEach((item) => {
+                            item.id = item._id;
+                        });
+                        finalData.data = items;
+                    }
+                    res.send(finalData);
+                }
+            });
         }
     });
 
