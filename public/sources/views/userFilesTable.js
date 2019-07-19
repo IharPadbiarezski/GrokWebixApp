@@ -34,20 +34,7 @@ export default class UserFilesTable extends JetView {
 						CommonColumns.getDeleteColumn()
 
 					],
-					onClick: {
-						"wxi-trash": (e, id) => {
-							webix.confirm({
-								text: "The file will be deleted. Deleting cannot be undone... <br/> Are you sure?",
-								ok: "OK",
-								cancel: "Cancel"
-							}).then(() => {
-								if (id) {
-									files.remove(id);
-								}
-							});
-							return false;
-						}
-					}
+					onClick: CommonColumns.deleteRow("file", files)
 				},
 				{
 					cols: [

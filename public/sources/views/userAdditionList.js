@@ -1,6 +1,5 @@
 import {JetView} from "webix-jet";
 import {places} from "../models/places";
-import {userData} from "../models/userData";
 
 export default class UserList extends JetView {
 	config() {
@@ -16,8 +15,7 @@ export default class UserList extends JetView {
 
 	init(view) {
 		this.webix.promise.all([
-			places.waitData,
-			userData.waitData
+			places.waitData
 		]).then(() => {
 			view.sync(places);
 		});
@@ -26,7 +24,7 @@ export default class UserList extends JetView {
 	urlChange() {
 		places.waitData.then(() => {
 			const id = this.getParam("id") || "";
-			places.data.filter(obj => obj.userDataId.toString() === id.toString());
+			places.data.filter(obj => +obj.userDataId === +id);
 		});
 	}
 }

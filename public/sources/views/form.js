@@ -1,7 +1,6 @@
 import {JetView} from "webix-jet";
 import {genders} from "../models/genders";
 import {users} from "../models/users";
-import {hideFormElements, showFormElements} from "./functions/formManipulations";
 
 export default class ContactForm extends JetView {
 	config() {
@@ -28,55 +27,6 @@ export default class ContactForm extends JetView {
 				},
 				{
 					view: "text",
-					name: "age",
-					label: "Age",
-					labelWidth: 90,
-					labelPosition: "top",
-					placeholder: "Age",
-					invalidMessage: "Age is required"
-				},
-				{
-					view: "text",
-					name: "company",
-					localId: "companyField",
-					label: "Company",
-					labelWidth: 90,
-					labelPosition: "top",
-					placeholder: "Company",
-					invalidMessage: "Company's name is required"
-				},
-				{
-					view: "text",
-					name: "balance",
-					localId: "balanceField",
-					label: "Balance",
-					labelWidth: 90,
-					labelPosition: "top",
-					placeholder: "Balance",
-					invalidMessage: "Balance is requkired"
-				}
-			],
-			x: 0,
-			y: 0,
-			dx: 1,
-			dy: 7
-		};
-
-		const moreInfo = {
-			margin: 10,
-			rows: [
-				{
-					view: "text",
-					name: "address",
-					localId: "addressField",
-					label: "Address",
-					labelWidth: 90,
-					labelPosition: "top",
-					placeholder: "Address",
-					invalidMessage: "An address is required"
-				},
-				{
-					view: "text",
 					name: "email",
 					label: "Email",
 					labelWidth: 90,
@@ -95,6 +45,54 @@ export default class ContactForm extends JetView {
 					invalidMessage: "Please enter any 12 numbers"
 				},
 				{
+					view: "checkbox",
+					name: "isActive",
+					labelRight: "Available",
+					labelPosition: "top",
+					checkValue: "Available",
+					uncheckValue: "Unavailable"
+				}
+			],
+			x: 0,
+			y: 0,
+			dx: 1,
+			dy: 7
+		};
+
+		const moreInfo = {
+			margin: 10,
+			localId: "moreInfo",
+			rows: [
+				{
+					view: "text",
+					name: "address",
+					localId: "addressField",
+					label: "Address",
+					labelWidth: 90,
+					labelPosition: "top",
+					placeholder: "Address",
+					invalidMessage: "An address is required"
+				},
+				{
+					view: "text",
+					name: "age",
+					label: "Age",
+					labelWidth: 90,
+					labelPosition: "top",
+					placeholder: "Age",
+					invalidMessage: "Age is required"
+				},
+				{
+					view: "text",
+					name: "balance",
+					localId: "balanceField",
+					label: "Balance",
+					labelWidth: 90,
+					labelPosition: "top",
+					placeholder: "Balance",
+					invalidMessage: "Balance is requkired"
+				},
+				{
 					view: "text",
 					name: "eyeColor",
 					localId: "eyeColorField",
@@ -105,12 +103,14 @@ export default class ContactForm extends JetView {
 					invalidMessage: "Color of eyes is required"
 				},
 				{
-					view: "checkbox",
-					name: "isActive",
-					labelRight: "Available",
+					view: "text",
+					name: "company",
+					localId: "companyField",
+					label: "Company",
+					labelWidth: 90,
 					labelPosition: "top",
-					checkValue: "Available",
-					uncheckValue: "Unavailable"
+					placeholder: "Company",
+					invalidMessage: "Company's name is required"
 				}
 			],
 			x: 1,
@@ -157,16 +157,13 @@ export default class ContactForm extends JetView {
 					uncheckValue: "Unchecked",
 					on: {
 						onChange(newVal) {
-							const company = this.$scope.$$("companyField");
-							const address = this.$scope.$$("addressField");
-							const eyeColor = this.$scope.$$("eyeColorField");
-							const balance = this.$scope.$$("balanceField");
+							const additionInfo = this.$scope.$$("moreInfo");
 
 							if (newVal === "Checked") {
-								hideFormElements(company, address, eyeColor, balance);
+								additionInfo.hide();
 							}
 							else {
-								showFormElements(company, address, eyeColor, balance);
+								additionInfo.show();
 							}
 						}
 					}
