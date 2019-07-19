@@ -1,9 +1,11 @@
+// const usersController = require("../controllers/users")
 const ObjectID = require("mongodb").ObjectID;
+const path = require("../config/path");
 
 module.exports = (app, db) => {
 	const DB = db.db("Grok");
 
-	app.get("/api/v1/users/:id", (req, res) => {
+	app.get(`${path.users}:id`, (req, res) => {
 		const id = req.params.id;
 		const details = {_id: new ObjectID(id)};
 		DB.collection("users").findOne(details, (err, item) => {
@@ -16,18 +18,18 @@ module.exports = (app, db) => {
 		});
 	});
 
-	app.post("/api/v1/users/upload", (req, res) => {
+	app.post(`${path.userdata}upload`, (req, res) => {
 		if (Object.keys(req.files).length == 0) {
 			return res.status(400).send("No files were uploaded.");
 		}
 
-		req.files.upload.mv(`/Dev/Projects/files/${  req.files.upload.name}`, (err) => {
+		req.files.upload.mv(`${path.userFiles}${req.files.upload.name}`, (err) => {
 			if (err) { return res.status(500).send(err); }
 			res.send("File uploaded!");
 		});
 	});
 
-	app.delete("/api/v1/users/:id", (req, res) => {
+	app.delete(`${path.users}:id`, (req, res) => {
 		const id = req.params.id;
 		const details = {_id: new ObjectID(id)};
 		DB.collection("users").remove(details, (err) => {
@@ -40,7 +42,7 @@ module.exports = (app, db) => {
 		});
 	});
 
-	app.get("/api/v1/users/", (req, res) => {
+	app.get(`${path.users}`, (req, res) => {
 		DB.collection("users").find().toArray((err, items) => {
 			if (err) {
 				res.send({error: "An error has occured"});
@@ -80,7 +82,7 @@ module.exports = (app, db) => {
 		});
 	});
 
-	app.put("/api/v1/users/:id", (req, res) => {
+	app.put(`${path.users}:id`, (req, res) => {
 		const id = req.params.id;
 		const details = {_id: new ObjectID(id)};
 		const user = {

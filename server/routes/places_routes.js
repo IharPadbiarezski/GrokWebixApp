@@ -1,9 +1,10 @@
 const ObjectID = require('mongodb').ObjectID;
+const path = require("../config/path");
 
 module.exports = (app, db) => {
     const DB = db.db('Grok');
 
-    app.get('/api/v1/places/:id', (req, res) => {
+    app.get(`${path.places}:id`, (req, res) => {
         const id = req.params.id;
         const details = {'_id': new ObjectID(id)};
         DB.collection('places').findOne(details, (err, item) => {
@@ -15,7 +16,7 @@ module.exports = (app, db) => {
         })
     });
 
-    app.delete('/api/v1/places/:id', (req, res) => {
+    app.delete(`${path.places}:id`, (req, res) => {
         const id = req.params.id;
         const details = {'_id': new ObjectID(id)};
         DB.collection('places').remove(details, (err, item) => {
@@ -27,7 +28,7 @@ module.exports = (app, db) => {
         })
     });
 
-    app.get('/api/v1/places', (req, res) => {
+    app.get(`${path.places}`, (req, res) => {
         DB.collection('places').find().toArray((err, items) => {
             if (err) {
                 res.send({'error': 'An error has occured'});
@@ -41,7 +42,7 @@ module.exports = (app, db) => {
     });
 
 
-    app.post('/api/v1/places', (req, res) => {
+    app.post(`${path.places}`, (req, res) => {
         const place = {
             place: req.body.place,
             userDataId: req.body.userDataId
@@ -57,7 +58,7 @@ module.exports = (app, db) => {
         });
     });
 
-    app.put('/api/v1/places/:id', (req, res) => {
+    app.put(`${path.places}:id`, (req, res) => {
         const id = req.params.id;
         const details = {'_id': new ObjectID(id)};
         const place = {

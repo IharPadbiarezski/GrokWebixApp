@@ -1,9 +1,10 @@
 const ObjectID = require("mongodb").ObjectID;
+const path = require("../config/path");
 
 module.exports = (app, db) => {
 	const DB = db.db("Grok");
 
-	app.get("/api/v1/genders/:id", (req, res) => {
+	app.get(`${path.genders}:id`, (req, res) => {
 		const id = req.params.id;
 		const details = {_id: new ObjectID(id)};
 		DB.collection("genders").findOne(details, (err, item) => {
@@ -16,7 +17,7 @@ module.exports = (app, db) => {
 		});
 	});
 
-	app.delete("/api/v1/genders/:id", (req, res) => {
+	app.delete(`${path.genders}:id`, (req, res) => {
 		const id = req.params.id;
 		const details = {_id: new ObjectID(id)};
 		DB.collection("genders").remove(details, (err) => {
@@ -29,7 +30,7 @@ module.exports = (app, db) => {
 		});
 	});
 
-	app.get("/api/v1/genders/", (req, res) => {
+	app.get(`${path.genders}`, (req, res) => {
 		DB.collection("genders").find().toArray((err, items) => {
 			if (err) {
 				res.send({error: "An error has occured"});
@@ -44,7 +45,7 @@ module.exports = (app, db) => {
 	});
 
 
-	app.post("/api/v1/genders", (req, res) => {
+	app.post(`${path.genders}`, (req, res) => {
 		const gender = {
 			id: req.body.id,
 			value: req.body.value
@@ -61,7 +62,7 @@ module.exports = (app, db) => {
 		});
 	});
 
-	app.put("/api/v1/genders/:id", (req, res) => {
+	app.put(`${path.genders}:id`, (req, res) => {
 		const id = req.params.id;
 		const details = {_id: new ObjectID(id)};
 		const gender = {

@@ -1,9 +1,10 @@
 const ObjectID = require("mongodb").ObjectID;
+const path = require("../config/path");
 
 module.exports = (app, db) => {
 	const DB = db.db("Grok");
 
-	app.get("/api/v1/goalsfiles/:id", (req, res) => {
+	app.get(`${path.goalsfiles}:id`, (req, res) => {
 		const id = req.params.id;
 		const details = {_id: new ObjectID(id)};
 		DB.collection("goalsfiles").findOne(details, (err, item) => {
@@ -16,10 +17,10 @@ module.exports = (app, db) => {
 		});
 	});
 
-	app.delete("/api/v1/goalsfiles/:id", (req, res) => {
+	app.delete(`${path.goalsfiles}:id`, (req, res) => {
 		const id = req.params.id;
 		const details = {_id: new ObjectID(id)};
-		DB.collection("goalsfiles").remove(details, (err) => {
+		DB.collection("goalsfiles").deleteOne(details, (err) => {
 			if (err) {
 				res.send({error: "An error has occured"});
 			}
@@ -29,7 +30,7 @@ module.exports = (app, db) => {
 		});
 	});
 
-	app.get("/api/v1/goalsfiles/", (req, res) => {
+	app.get(`${path.goalsfiles}`, (req, res) => {
 		DB.collection("goalsfiles").find().toArray((err, items) => {
 			if (err) {
 				res.send({error: "An error has occured"});
@@ -44,7 +45,7 @@ module.exports = (app, db) => {
 	});
 
 
-	app.post("/api/v1/goalsfiles", (req, res) => {
+	app.post(`${path.goalsfiles}`, (req, res) => {
 		const goalsfile = {
 			name: req.body.name,
 			size: req.body.size,
@@ -63,7 +64,20 @@ module.exports = (app, db) => {
 		});
 	});
 
-	app.put("/api/v1/goalsfiles/:id", (req, res) => {
+	app.post(`${path.genders}upload`, (req, res) => {
+		if (Object.keys(req.files).length == 0) {
+			return res.status(400).send("No files were uploaded.");
+		}
+
+		req.files.upload.mv(`${path.goalFiles}${req.files.upload.name}`, (err) => {
+			if (err) { return res.status(500).send(err); }
+			res.send("File uploaded!");
+		});
+
+		console.log(req.files);
+	});
+
+	app.put(`${path.goalsfiles}:id`, (req, res) => {
 		const id = req.params.id;
 		const details = {_id: new ObjectID(id)};
 		const goalsfile = {

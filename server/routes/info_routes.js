@@ -1,9 +1,10 @@
 const ObjectID = require("mongodb").ObjectID;
+const path = require("../config/path");
 
 module.exports = (app, db) => {
 	const DB = db.db("Grok");
 
-	app.get("/api/v1/info/:id", (req, res) => {
+	app.get(`${path.info}:id`, (req, res) => {
 		const id = req.params.id;
 		const details = {_id: new ObjectID(id)};
 		DB.collection("info").findOne(details, (err, item) => {
@@ -16,7 +17,7 @@ module.exports = (app, db) => {
 		});
 	});
 
-	app.delete("/api/v1/info/:id", (req, res) => {
+	app.delete(`${path.info}:id`, (req, res) => {
 		const id = req.params.id;
 		const details = {_id: new ObjectID(id)};
 		DB.collection("info").remove(details, (err) => {
@@ -29,7 +30,7 @@ module.exports = (app, db) => {
 		});
 	});
 
-	app.get("/api/v1/info", (req, res) => {
+	app.get(`${path.info}`, (req, res) => {
 		if (req.query.sort) {
 			const sortField = Object.keys(req.query.sort)[0];
 			if (req.query.sort[sortField] === "asc") {
@@ -105,7 +106,7 @@ module.exports = (app, db) => {
 		}
 	});
 
-	app.post("/api/v1/info", (req, res) => {
+	app.post(`${path.info}`, (req, res) => {
 		const info = {
 			song: req.body.song,
 			car: req.body.car,
@@ -125,20 +126,7 @@ module.exports = (app, db) => {
 		});
 	});
 
-	app.post("/api/v1/info/upload", (req, res) => {
-		if (Object.keys(req.files).length == 0) {
-			return res.status(400).send("No files were uploaded.");
-		}
-
-		req.files.upload.mv(`/Dev/Projects/infofiles/${req.files.upload.name}`, (err) => {
-			if (err) { return res.status(500).send(err); }
-			res.send("File uploaded!");
-		});
-
-		console.log(req.files);
-	});
-
-	app.put("/api/v1/info/:id", (req, res) => {
+	app.put(`${path.info}:id`, (req, res) => {
 		const id = req.params.id;
 		const details = {_id: new ObjectID(id)};
 		const info = {
