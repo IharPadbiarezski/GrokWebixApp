@@ -2,6 +2,7 @@ import {JetView} from "webix-jet";
 import {genders} from "../models/genders";
 import {users} from "../models/users";
 import {userFiles} from "../models/userFiles";
+import {urls} from "../config/urls";
 import {hideFormElements, showFormElements} from "./functions/formManipulations";
 
 export default class ContactForm extends JetView {
@@ -129,7 +130,7 @@ export default class ContactForm extends JetView {
 					name: "userFiles",
 					link: "filelist",
 					autosend: false,
-					upload: "http://localhost:3000/api/v1/users/upload",
+					upload: urls.usersUpload,
 					on: {
 						onBeforeFileAdd: (file) => {
 							const values = {

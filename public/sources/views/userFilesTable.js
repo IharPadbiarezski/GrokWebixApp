@@ -1,6 +1,7 @@
 import {JetView} from "webix-jet";
 import CommonColumns from "./common/commonColumns";
 import {goalsFiles} from "../models/goalsFiles";
+import {urls} from "../config/urls";
 
 export default class UserFilesTable extends JetView {
 	config() {
@@ -54,11 +55,9 @@ export default class UserFilesTable extends JetView {
 						{},
 						{
 							view: "uploader",
-							// localId: "uploader",
 							label: "Upload file",
 							width: 200,
-							upload: "http://localhost:3000/api/v1/info/upload",
-							// autosend: true,
+							upload: urls.infoUpload,
 							on: {
 								onBeforeFileAdd: (file) => {
 									let id = this.getParam("id");

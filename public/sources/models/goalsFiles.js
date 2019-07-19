@@ -1,3 +1,5 @@
+import {urls} from "../config/urls";
+
 const dateFormat = webix.Date.strToDate("%Y-%m-%d %H:%i:%s");
 
 export const goalsFiles = new webix.DataCollection({
@@ -8,6 +10,6 @@ export const goalsFiles = new webix.DataCollection({
 			}
 		}
 	},
-	url: "http://localhost:3000/api/v1/goalsfiles/",
-	save: "rest->http://localhost:3000/api/v1/goalsfiles/"
+	url: urls.goalsFiles,
+	save: `rest->${urls.goalsFiles}`
 });

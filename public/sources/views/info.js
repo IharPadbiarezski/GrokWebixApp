@@ -1,4 +1,5 @@
 import {JetView} from "webix-jet";
+import {urls} from "../config/urls";
 
 export default class UsersTable extends JetView {
 	config() {
@@ -8,8 +9,8 @@ export default class UsersTable extends JetView {
 			editable: true,
 			editaction: "dblclick",
 			datafetch: 20,
-			url: "http://localhost:3000/api/v1/info/",
-			save: "rest->http://localhost:3000/api/v1/info/",
+			url: urls.info,
+			save: `rest->${urls.info}`,
 			columns: [
 				{
 					id: "song",
