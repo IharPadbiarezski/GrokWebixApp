@@ -23,7 +23,7 @@ export default class UsersTemplate extends JetView {
 
 	urlChange() {
 		webix.promise.all([
-			// users.waitData,
+			users.waitData,
 			userData.waitData
 		]).then(() => {
 			const id = this.getParam("id");
