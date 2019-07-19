@@ -54,11 +54,11 @@ export default class UserFilesTable extends JetView {
 						{},
 						{
 							view: "uploader",
-							id: "uploader",
-							type: "iconButton",
+							// localId: "uploader",
 							label: "Upload file",
 							width: 200,
-							autosend: false,
+							upload: "http://localhost:3000/api/v1/info/upload",
+							// autosend: true,
 							on: {
 								onBeforeFileAdd: (file) => {
 									let id = this.getParam("id");

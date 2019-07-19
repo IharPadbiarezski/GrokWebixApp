@@ -1,6 +1,5 @@
 import {JetView} from "webix-jet";
 import {userData} from "../models/userData";
-import {users} from "../models/users";
 
 export default class UsersTable extends JetView {
 	config() {
@@ -53,7 +52,6 @@ export default class UsersTable extends JetView {
 
 	init() {
 		webix.promise.all([
-			users.waitData,
 			userData.waitData
 		]).then(() => {
 			this.$$("table").sync(userData);

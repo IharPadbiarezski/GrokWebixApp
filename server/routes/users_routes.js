@@ -15,6 +15,18 @@ module.exports = function(app, db) {
         })
     });
 
+    app.post('/api/v1/users/upload', (req, res) => {
+        if (Object.keys(req.files).length == 0) {
+            return res.status(400).send('No files were uploaded.');
+        }
+
+        req.files.upload.mv('/Dev/Projects/files/' + req.files.upload.name, (err) => {
+            if (err)
+            return res.status(500).send(err);
+            res.send('File uploaded!');
+        })
+    })
+
     app.delete('/api/v1/users/:id', (req, res) => {
         const id = req.params.id;
         const details = {'_id': new ObjectID(id)};

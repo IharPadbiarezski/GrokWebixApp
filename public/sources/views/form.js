@@ -125,10 +125,11 @@ export default class ContactForm extends JetView {
 				{
 					view: "uploader",
 					value: "Upload file",
-					name: "files",
+					localId: "uploader",
+					name: "userFiles",
 					link: "filelist",
 					autosend: false,
-					upload: "https:///server/upload",
+					upload: "http://localhost:3000/api/v1/users/upload",
 					on: {
 						onBeforeFileAdd: (file) => {
 							const values = {
@@ -207,6 +208,11 @@ export default class ContactForm extends JetView {
 						if (this.form.validate()) {
 							const values = this.form.getValues();
 							users.add(values);
+							this.$$("uploader").send((response) => {
+								if (response) {
+									webix.message(response.status);
+								}
+							});
 							webix.message({type: "success", text: "Users is added"});
 							this.clearForm();
 						}
@@ -256,16 +262,16 @@ export default class ContactForm extends JetView {
 
 						}
 					],
-					rules: {
-						name: webix.rules.isNotEmpty,
-						eyeColor: webix.rules.isNotEmpty,
-						gender: webix.rules.isNotEmpty,
-						balance: webix.rules.isNumber,
-						age: webix.rules.isNumber,
-						company: webix.rules.isNotEmpty,
-						address: webix.rules.isNotEmpty,
-						email: webix.rules.isEmail
-					}
+					// rules: {
+					// 	name: webix.rules.isNotEmpty,
+					// 	eyeColor: webix.rules.isNotEmpty,
+					// 	gender: webix.rules.isNotEmpty,
+					// 	balance: webix.rules.isNumber,
+					// 	age: webix.rules.isNumber,
+					// 	company: webix.rules.isNotEmpty,
+					// 	address: webix.rules.isNotEmpty,
+					// 	email: webix.rules.isEmail
+					// }
 				}
 			]
 		};
