@@ -44,7 +44,7 @@ module.exports = function(app, db) {
                     let itemsPackage;
                     if ( req.query.count && req.query.start) {
                         const count = +req.query.count;
-                        const startIndex = +req.query.start + 1;
+                        const startIndex = +req.query.start;
                         const endIndex = count + startIndex;
                         finalData = {
                             "pos": +req.query.start,
@@ -68,7 +68,7 @@ module.exports = function(app, db) {
                     
                     if ( req.query.count && req.query.start) {
                         const count = +req.query.count;
-                        const startIndex = +req.query.start + 1;
+                        const startIndex = +req.query.start;
                         const endIndex = count + startIndex;
                         finalData = {
                             "pos": +req.query.start,
@@ -82,7 +82,7 @@ module.exports = function(app, db) {
                     }
                     else {
                         const count = +req.query.count;
-                        const startIndex = 1;
+                        const startIndex = 0;
                         const endIndex = count + startIndex;
                         finalData = {
                             "pos": +req.query.start,
