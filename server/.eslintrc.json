@@ -1,21 +1,7 @@
-// {
-//   "env": { "browser": false },
-//   "extends": "./node_modules/eslint-xbsoftware/1__double_quotes_and_tabs.js"
-// }
-
-
 {
   "env": {
-    "browser": false,
+    "node": true,
     "es6": true
-  },
-  "globals": {
-    "webix": true,
-    "scheduler": true,
-    "APPNAME": true,
-    "VERSION": true,
-    "PRODUCTION": true,
-    "BUILD_AS_MODULE": true
   },
   "rules": {
     "import/prefer-default-export": "off",
@@ -29,5 +15,5 @@
       "impliedStrict": true
     }
   },
-  "extends": "./node_modules/eslint-xbsoftware/1__double_quotes_and_tabs.js"
+  "extends": "./node_modules/eslint-config-xbsoftware/1__double_quotes_and_tabs.js"
 }
