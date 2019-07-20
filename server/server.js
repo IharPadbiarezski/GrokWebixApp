@@ -17,11 +17,11 @@ app.use(cors());
 
 const client = new MongoClient(db.uri, {useNewUrlParser: true});
 
-client.connect((err, database) => {
+db.connect((err) => {
 	if (err) {
-		console.log(err);
+		return console.log(err);
 	}
-	require("./routes")(app, database);
+	require("./routes")(app);
 	app.listen(port, () => {
 		console.log(`App listening on port ${port}!`);
 	});

@@ -129,6 +129,7 @@ export default class ContactForm extends JetView {
 					name: "userFiles",
 					link: "filelist",
 					autosend: false,
+					multiple: false,
 					upload: urls.usersUpload,
 					on: {
 						onBeforeFileAdd: (file) => {

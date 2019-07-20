@@ -1,46 +1,34 @@
-const ObjectID = require('mongodb').ObjectID;
-// const db = require('./db');
+const ObjectID = require("mongodb").ObjectID;
+const db = require("../config/db");
 
-exports.all = (cb, DB) => {
-    DB.collection('users').find().toArray((err, items) => {
-        cb(err, items);
-    })
-}
+exports.all = (cb) => {
+	db.get().collection("users").find().toArray((err, items) => {
+		cb(err, items);
+	});
+};
 
 exports.findById = (id, cb) => {
-    // const id = req.params.id;
-    // const details = {'_id': new ObjectID(id)};
-    DB.collection('users').findOne(details, (err, item) => {
-        cb(err, item);
-        // if (err) {
-        //     res.send({'error': 'An error has occured'});
-        // } else {
-        //     res.send(item);
-        // }
-    })
-}
+	db.get().collection("users").findOne({_id: new ObjectID(id)}, (err, item) => {
+		cb(err, item);
+	});
+};
 
 exports.create = (user, cb) => {
-    // const user = {
-    //     name: req.body.name,
-    //     gender: req.body.gender,
-    //     isActive: req.body.isActive,
-    //     balance: req.body.balance,
-    //     age: req.body.age,
-    //     eyeColor: req.body.eyeColor,
-    //     company: req.body.company,
-    //     email: req.body.email,
-    //     phone: req.body.phone,
-    //     address: req.body.address
-    // };
+	db.get().collection("users").insert(user, (err, result) => {
+		cb(err, result);
+	});
+};
 
-    DB.collection('users').insert(user, (err, result) => {
-        cb(err, result);
-        // if (err) {
-        //     res.send({'error': 'An error has occured'});
-        // } else {
-        //     result.ops[0].id = result.insertedIds[0];
-        //     res.send(result.ops[0]);
-        // }
-    });
+exports.update = (id, user, cb) => {
+	db.get().collection("users").update({_id: new ObjectID(id)}, user, (err) => {
+			cb(err);
+		}
+	);
+};
+
+exports.delete = (id, cb) => {
+	db.get().collection("users").deleteOne({_id: ObjectID(id)}, (err) => {
+			cb(err);
+		}
+	);
 }
