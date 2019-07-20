@@ -1,5 +1,5 @@
 let version = "/api/v1/";
-let rootFolder = "C:/Dev/Projects/GrokWebixApp/files/"
+let rootFolder = "/Dev/Projects/GrokWebixApp/files/"
 
 module.exports = {
 	places: `${version}places/`,
@@ -11,5 +11,5 @@ module.exports = {
 	genders: `${version}genders/`,
 
 	userFiles: `${rootFolder}userFiles/`,
-	goalFiles: `${rootFolder}goalFiles/`
+	goalFiles: `${rootFolder}goalsFiles/`
 };

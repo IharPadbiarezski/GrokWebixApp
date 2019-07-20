@@ -9,5 +9,5 @@ export const urls = {
 	userFiles: `${mainUrl}userFiles/`,
 	users: `${mainUrl}users/`,
 	usersUpload: `${mainUrl}users/upload`,
-	infoUpload: `${mainUrl}goalsfiles/upload`
+	goalsUpload: `${mainUrl}goalsfiles/upload`
 };

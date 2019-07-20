@@ -57,25 +57,25 @@ export default class UserFilesTable extends JetView {
 							view: "uploader",
 							label: "Upload file",
 							width: 200,
-							upload: urls.infoUpload,
-							on: {
-								onBeforeFileAdd: (file) => {
-									let id = this.getParam("id");
-									if (id) {
-										const values = {
-											name: file.name,
-											size: Math.round(file.size / 1000),
-											changeDate: file.file.lastModifiedDate,
-											goalId: id
-										};
-										goalsFiles.add(values);
-									}
-									return false;
-								},
-								onFileUploadError: () => {
-									webix.message("Upload failed.");
-								}
-							}
+							upload: urls.goalsUpload
+							// on: {
+							// 	onBeforeFileAdd: (file) => {
+							// 		let id = this.getParam("id");
+							// 		if (id) {
+							// 			const values = {
+							// 				name: file.name,
+							// 				size: Math.round(file.size / 1000),
+							// 				changeDate: file.file.lastModifiedDate,
+							// 				goalId: id
+							// 			};
+							// 			goalsFiles.add(values);
+							// 		}
+							// 		return false;
+							// 	},
+							// 	onFileUploadError: () => {
+							// 		webix.message("Upload failed.");
+							// 	}
+							// }
 						},
 						{}
 					]

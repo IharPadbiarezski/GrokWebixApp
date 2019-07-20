@@ -18,7 +18,7 @@ module.exports = (app, db) => {
 		});
 	});
 
-	app.post(`${path.userdata}upload`, (req, res) => {
+	app.post(`${path.users}upload`, (req, res) => {
 		if (Object.keys(req.files).length == 0) {
 			return res.status(400).send("No files were uploaded.");
 		}
@@ -57,7 +57,7 @@ module.exports = (app, db) => {
 	});
 
 
-	app.post("/api/v1/users", (req, res) => {
+	app.post(`${path.users}`, (req, res) => {
 		const user = {
 			name: req.body.name,
 			gender: req.body.gender,
@@ -68,7 +68,10 @@ module.exports = (app, db) => {
 			company: req.body.company,
 			email: req.body.email,
 			phone: req.body.phone,
-			address: req.body.address
+			address: req.body.address,
+			fileName: req.body.fileName,
+			fileSize: req.body.fileSize,
+			filePath: `${path.userFiles}${req.body.fileName}`
 		};
 
 		DB.collection("users").insert(user, (err, result) => {
@@ -97,7 +100,7 @@ module.exports = (app, db) => {
 			phone: req.body.phone,
 			address: req.body.address
 		};
-
+		
 		DB.collection("users").update(details, user, (err) => {
 			if (err) {
 				res.send({error: "An error has occured"});

@@ -64,7 +64,8 @@ module.exports = (app, db) => {
 		});
 	});
 
-	app.post(`${path.genders}upload`, (req, res) => {
+	app.post(`${path.goalsfiles}upload`, (req, res) => {
+		console.log("hi")
 		if (Object.keys(req.files).length == 0) {
 			return res.status(400).send("No files were uploaded.");
 		}

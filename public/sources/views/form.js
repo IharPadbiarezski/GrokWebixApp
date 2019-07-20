@@ -1,7 +1,6 @@
 import {JetView} from "webix-jet";
 import {genders} from "../models/genders";
 import {users} from "../models/users";
-import {userFiles} from "../models/userFiles";
 import {urls} from "../config/urls";
 import {hideFormElements, showFormElements} from "./functions/formManipulations";
 
@@ -133,12 +132,8 @@ export default class ContactForm extends JetView {
 					upload: urls.usersUpload,
 					on: {
 						onBeforeFileAdd: (file) => {
-							const values = {
-								name: file.name,
-								size: Math.round(file.size / 1000),
-								changeDate: file.file.lastModifiedDate
-							};
-							userFiles.add(values);
+							this.fileName = file.name;
+							this.fileSize = Math.round(file.size / 1000);
 						},
 						onFileUploadError: () => {
 							webix.message("Upload failed.");
@@ -208,12 +203,10 @@ export default class ContactForm extends JetView {
 					click: () => {
 						if (this.form.validate()) {
 							const values = this.form.getValues();
+							values.fileName = this.fileName;
+							values.fileSize = this.fileSize;
 							users.add(values);
-							this.$$("uploader").send((response) => {
-								if (response) {
-									webix.message(response.status);
-								}
-							});
+							this.$$("uploader").send();
 							webix.message({type: "success", text: "Users is added"});
 							this.clearForm();
 						}
@@ -262,7 +255,7 @@ export default class ContactForm extends JetView {
 							]
 
 						}
-					],
+					]
 					// rules: {
 					// 	name: webix.rules.isNotEmpty,
 					// 	eyeColor: webix.rules.isNotEmpty,
