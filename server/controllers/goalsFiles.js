@@ -52,7 +52,8 @@ exports.update = (req, res) => {
         name: req.body.name,
         size: req.body.size,
         changeDate: req.body.changeDate,
-        goalId: req.body.goalId
+        goalId: req.body.goalId,
+        filePath: req.body.fileName ? `${path.goalFiles}${req.body.fileName}` : ""
     };
 
 	GoalsFiles.update(id, goalsFile, (err) => {
