@@ -29,18 +29,18 @@ exports.findById = (req, res) => {
 
 exports.create = (req, res) => {
 	const user = {
-		name: req.body.name,
-		gender: req.body.gender,
-		isActive: req.body.isActive,
-		balance: req.body.balance,
-		age: req.body.age,
-		eyeColor: req.body.eyeColor,
-		company: req.body.company,
-		email: req.body.email,
-		phone: req.body.phone,
-		address: req.body.address,
-		fileName: req.body.fileName,
-		fileSize: req.body.fileSize,
+		name: req.body.name || "",
+		gender: req.body.gender || "",
+		isActive: req.body.isActive  || "",
+		balance: req.body.balance  || "",
+		age: req.body.age  || "",
+		eyeColor: req.body.eyeColor  || "",
+		company: req.body.company  || "",
+		email: req.body.email  || "",
+		phone: req.body.phone  || "",
+		address: req.body.address  || "",
+		fileName: req.body.fileName  || "",
+		fileSize: req.body.fileSize  || "",
 		filePath: req.body.fileName ? `${path.userFiles}${req.body.fileName}` : ""
     };
     
@@ -58,18 +58,18 @@ exports.create = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
     const user = {
-        name: req.body.name,
-        gender: req.body.gender,
-        isActive: req.body.isActive,
-        balance: req.body.balance,
-        age: req.body.age,
-        eyeColor: req.body.eyeColor,
-        company: req.body.company,
-        email: req.body.email,
-        phone: req.body.phone,
-        address: req.body.address,
-        fileName: req.body.fileName,
-		fileSize: req.body.fileSize,
+        name: req.body.name || "",
+        gender: req.body.gender || "",
+        isActive: req.body.isActive || "",
+        balance: req.body.balance || "",
+        age: req.body.age || "",
+        eyeColor: req.body.eyeColor || "",
+        company: req.body.company || "",
+        email: req.body.email || "",
+        phone: req.body.phone || "",
+        address: req.body.address || "",
+        fileName: req.body.fileName || "",
+		fileSize: req.body.fileSize || "",
 		filePath: req.body.fileName ? `${path.userFiles}${req.body.fileName}` : ""
     };
 

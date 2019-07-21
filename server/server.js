@@ -15,8 +15,6 @@ app.use(fileUpload());
 
 app.use(cors());
 
-const client = new MongoClient(db.uri, {useNewUrlParser: true});
-
 db.connect((err) => {
 	if (err) {
 		return console.log(err);
