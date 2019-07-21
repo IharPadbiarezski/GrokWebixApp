@@ -2,7 +2,6 @@ import {JetView} from "webix-jet";
 import {genders} from "../models/genders";
 import {users} from "../models/users";
 import {urls} from "../config/urls";
-import {hideFormElements, showFormElements} from "./functions/formManipulations";
 
 export default class ContactForm extends JetView {
 	config() {
@@ -26,6 +25,54 @@ export default class ContactForm extends JetView {
 					labelPosition: "top",
 					options: genders,
 					invalidMessage: "Gender is required"
+				},
+				{
+					view: "text",
+					name: "email",
+					label: "Email",
+					labelWidth: 90,
+					labelPosition: "top",
+					placeholder: "Email",
+					invalidMessage: "Email is required"
+				},
+				{
+					view: "text",
+					name: "phone",
+					label: "Phone",
+					labelWidth: 90,
+					labelPosition: "top",
+					placeholder: "Phone",
+					pattern: {mask: "###-## #######", allow: /[0-9]/g},
+					invalidMessage: "Please enter any 12 numbers"
+				},
+				{
+					view: "checkbox",
+					name: "isActive",
+					labelRight: "Available",
+					labelPosition: "top",
+					checkValue: "Available",
+					uncheckValue: "Unavailable"
+				}
+			],
+			x: 0,
+			y: 0,
+			dx: 1,
+			dy: 7
+		};
+
+		const moreInfo = {
+			margin: 10,
+			localId: "moreInfo",
+			rows: [
+				{
+					view: "text",
+					name: "address",
+					localId: "addressField",
+					label: "Address",
+					labelWidth: 90,
+					labelPosition: "top",
+					placeholder: "Address",
+					invalidMessage: "An address is required"
 				},
 				{
 					view: "text",
@@ -55,45 +102,6 @@ export default class ContactForm extends JetView {
 					labelPosition: "top",
 					placeholder: "Balance",
 					invalidMessage: "Balance is requkired"
-				}
-			],
-			x: 0,
-			y: 0,
-			dx: 1,
-			dy: 7
-		};
-
-		const moreInfo = {
-			margin: 10,
-			rows: [
-				{
-					view: "text",
-					name: "address",
-					localId: "addressField",
-					label: "Address",
-					labelWidth: 90,
-					labelPosition: "top",
-					placeholder: "Address",
-					invalidMessage: "An address is required"
-				},
-				{
-					view: "text",
-					name: "email",
-					label: "Email",
-					labelWidth: 90,
-					labelPosition: "top",
-					placeholder: "Email",
-					invalidMessage: "Email is required"
-				},
-				{
-					view: "text",
-					name: "phone",
-					label: "Phone",
-					labelWidth: 90,
-					labelPosition: "top",
-					placeholder: "Phone",
-					pattern: {mask: "###-## #######", allow: /[0-9]/g},
-					invalidMessage: "Please enter any 12 numbers"
 				},
 				{
 					view: "text",
@@ -104,14 +112,6 @@ export default class ContactForm extends JetView {
 					labelPosition: "top",
 					placeholder: "Color pf eyes",
 					invalidMessage: "Color of eyes is required"
-				},
-				{
-					view: "checkbox",
-					name: "isActive",
-					labelRight: "Available",
-					labelPosition: "top",
-					checkValue: "Available",
-					uncheckValue: "Unavailable"
 				}
 			],
 			x: 1,
@@ -170,16 +170,12 @@ export default class ContactForm extends JetView {
 					uncheckValue: "Unchecked",
 					on: {
 						onChange(newVal) {
-							const company = this.$scope.$$("companyField");
-							const address = this.$scope.$$("addressField");
-							const eyeColor = this.$scope.$$("eyeColorField");
-							const balance = this.$scope.$$("balanceField");
-
+							const additionInfo = this.$scope.$$("moreInfo");
 							if (newVal === "Checked") {
-								hideFormElements(company, address, eyeColor, balance);
+								additionInfo.hide();
 							}
 							else {
-								showFormElements(company, address, eyeColor, balance);
+								additionInfo.show();
 							}
 						}
 					}
@@ -202,15 +198,7 @@ export default class ContactForm extends JetView {
 					width: 200,
 					tooltip: "Add user",
 					click: () => {
-						if (this.form.validate()) {
-							const values = this.form.getValues();
-							values.fileName = this.fileName;
-							values.fileSize = this.fileSize;
-							users.add(values);
-							this.$$("uploader").send();
-							webix.message({type: "success", text: "Users is added"});
-							this.clearForm();
-						}
+						this.onSubmit();
 					}
 				},
 				{
@@ -259,12 +247,8 @@ export default class ContactForm extends JetView {
 					],
 					rules: {
 						name: webix.rules.isNotEmpty,
-						eyeColor: webix.rules.isNotEmpty,
 						gender: webix.rules.isNotEmpty,
-						balance: webix.rules.isNumber,
 						age: webix.rules.isNumber,
-						company: webix.rules.isNotEmpty,
-						address: webix.rules.isNotEmpty,
 						email: webix.rules.isEmail
 					}
 				}
@@ -274,6 +258,18 @@ export default class ContactForm extends JetView {
 
 	init() {
 		this.form = this.$$("form");
+	}
+
+	onSubmit() {
+		if (this.form.validate()) {
+			const values = this.form.getValues();
+			values.fileName = this.fileName;
+			values.fileSize = this.fileSize;
+			users.add(values);
+			this.$$("uploader").send();
+			webix.message({type: "success", text: "Users is added"});
+			this.clearForm();
+		}
 	}
 
 	clearForm() {

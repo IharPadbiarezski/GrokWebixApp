@@ -35,20 +35,7 @@ export default class UserFilesTable extends JetView {
 						CommonColumns.getDeleteColumn()
 
 					],
-					onClick: {
-						"wxi-trash": (e, id) => {
-							webix.confirm({
-								text: "The file will be deleted. Deleting cannot be undone... <br/> Are you sure?",
-								ok: "OK",
-								cancel: "Cancel"
-							}).then(() => {
-								if (id) {
-									goalsFiles.remove(id);
-								}
-							});
-							return false;
-						}
-					}
+					onClick: CommonColumns.deleteRow("file", goalsFiles)
 				},
 				{
 					cols: [
@@ -88,7 +75,12 @@ export default class UserFilesTable extends JetView {
 
 	urlChange() {
 		const id = this.getParam("id");
-		goalsFiles.data.filter(file => file.goalId === id);
+		if (!id) {
+			this.$$("uploader").disable();
+		}
+		else {
+			goalsFiles.data.filter(file => file.goalId === id);
+		}
 	}
 }
 
