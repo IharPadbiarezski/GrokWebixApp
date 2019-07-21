@@ -78,9 +78,7 @@ export default class UserFilesTable extends JetView {
 		if (!id) {
 			this.$$("uploader").disable();
 		}
-		else {
-			goalsFiles.data.filter(file => file.goalId === id);
-		}
+		goalsFiles.data.filter(file => file.goalId === id);
 	}
 }
 
