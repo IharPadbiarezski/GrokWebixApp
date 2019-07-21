@@ -14,9 +14,7 @@ export default class UserList extends JetView {
 	}
 
 	init(view) {
-		this.webix.promise.all([
-			places.waitData
-		]).then(() => {
+		places.waitData.then(() => {
 			view.sync(places);
 		});
 	}

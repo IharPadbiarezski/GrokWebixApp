@@ -186,12 +186,7 @@ export default class ContactForm extends JetView {
 					width: 200,
 					tooltip: "Add user",
 					click: () => {
-						if (this.form.validate()) {
-							const values = this.form.getValues();
-							users.add(values);
-							webix.message({type: "success", text: "Users is added"});
-							this.clearForm();
-						}
+						this.onSubmit();
 					}
 				},
 				{
@@ -255,6 +250,15 @@ export default class ContactForm extends JetView {
 
 	init() {
 		this.form = this.$$("form");
+	}
+
+	onSubmit() {
+		if (this.form.validate()) {
+			const values = this.form.getValues();
+			users.add(values);
+			webix.message({type: "success", text: "Users is added"});
+			this.clearForm();
+		}
 	}
 
 	clearForm() {

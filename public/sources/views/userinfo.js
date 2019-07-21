@@ -51,9 +51,7 @@ export default class UsersTable extends JetView {
 	}
 
 	init() {
-		webix.promise.all([
-			userData.waitData
-		]).then(() => {
+		userData.waitData.then(() => {
 			this.$$("table").sync(userData);
 			this.displayInfo();
 		});
@@ -63,11 +61,8 @@ export default class UsersTable extends JetView {
 		let url = "userAdditionInfo";
 		if (id) {
 			url += `?id=${id}`;
-			this.show(url);
 		}
-		else {
-			this.show(url);
-		}
+		this.show(url);
 	}
 }
 
