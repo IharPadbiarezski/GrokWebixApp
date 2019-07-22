@@ -1,6 +1,7 @@
 const express = require("express");
 const fileUpload = require("express-fileupload");
 const bodyParser = require("body-parser");
+const routes = require("./routes");
 const db = require("./config/db");
 const cors = require("cors");
 
@@ -18,7 +19,7 @@ db.connect((err) => {
 	if (err) {
 		return console.log(err);
 	}
-	require("./routes")(app);
+	routes(app);
 	app.listen(port, () => {
 		console.log(`App listening on port ${port}!`);
 	});
