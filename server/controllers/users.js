@@ -49,7 +49,7 @@ exports.create = (req, res) => {
             res.send({error: "An error has occured"});
         }
         else {
-            result.ops[0].id = result.insertedIds[0];
+            result.ops[0].id = result.insertedId;
             res.send(result.ops[0]);
         }
 	});
@@ -102,7 +102,6 @@ exports.upload = (req, res) => {
 	}
 
 	req.files.upload.mv(`${path.userFiles}${req.files.upload.name}`, (err) => {
-		if (err) { return res.status(500).send(err); }
-		res.send("File uploaded!");
+		if (err) { return res.status(500).send(err) }
 	});
 };

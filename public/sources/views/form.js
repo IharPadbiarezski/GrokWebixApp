@@ -128,7 +128,7 @@ export default class ContactForm extends JetView {
 					localId: "uploader",
 					name: "userFiles",
 					link: "filelist",
-					autosend: false,
+					autosend: true,
 					multiple: false,
 					upload: urls.usersUpload,
 					on: {
@@ -242,13 +242,11 @@ export default class ContactForm extends JetView {
 								controlCheckboxes,
 								buttons
 							]
-
 						}
 					],
 					rules: {
 						name: webix.rules.isNotEmpty,
 						gender: webix.rules.isNotEmpty,
-						age: webix.rules.isNumber,
 						email: webix.rules.isEmail
 					}
 				}

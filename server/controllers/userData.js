@@ -40,7 +40,7 @@ exports.create = (req, res) => {
             res.send({error: "An error has occured"});
         }
         else {
-            result.ops[0].id = result.insertedIds[0];
+            result.ops[0].id = result.insertedId;
             res.send(result.ops[0]);
         }
 	});

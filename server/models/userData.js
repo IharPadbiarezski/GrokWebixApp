@@ -14,7 +14,7 @@ exports.findById = (id, cb) => {
 };
 
 exports.create = (user, cb) => {
-	db.get().collection("userdata").insert(user, (err, result) => {
+	db.get().collection("userdata").insertOne(user, (err, result) => {
 		cb(err, result);
 	});
 };

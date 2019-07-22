@@ -20,7 +20,7 @@ exports.findById = (id, cb) => {
 };
 
 exports.create = (info, cb) => {
-	db.get().collection("info").insert(info, (err, result) => {
+	db.get().collection("info").insertOne(info, (err, result) => {
 		cb(err, result);
 	});
 };

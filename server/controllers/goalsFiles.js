@@ -29,10 +29,11 @@ exports.findById = (req, res) => {
 
 exports.create = (req, res) => {
 	const goalsFile = {
-        name: req.body.name,
-        size: req.body.size,
-        changeDate: req.body.changeDate,
-        goalId: req.body.goalId
+        name: req.body.name || "",
+        size: req.body.size || "",
+        changeDate: req.body.changeDate || "",
+        goalId: req.body.goalId || "",
+        filePath: req.body.name ? `${path.goalFiles}${req.body.name}` : ""
     };
     
 	GoalsFiles.create(goalsFile, (err, result) => {
@@ -40,7 +41,7 @@ exports.create = (req, res) => {
             res.send({error: "An error has occured"});
         }
         else {
-            result.ops[0].id = result.insertedIds[0];
+            result.ops[0].id = result.insertedId;
             res.send(result.ops[0]);
         }
 	});
@@ -49,11 +50,10 @@ exports.create = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
     const goalsFile = {
-        name: req.body.name,
-        size: req.body.size,
-        changeDate: req.body.changeDate,
-        goalId: req.body.goalId,
-        filePath: req.body.fileName ? `${path.goalFiles}${req.body.fileName}` : ""
+        name: req.body.name  || "",
+        size: req.body.size || "",
+        changeDate: req.body.changeDate || "",
+        goalId: req.body.goalId || ""
     };
 
 	GoalsFiles.update(id, goalsFile, (err) => {
@@ -73,9 +73,6 @@ exports.delete = (req, res) => {
         if (err) {
             res.send({error: "An error has occured"});
         }
-        else {
-            res.send(`Goal's file ${id} deleted`);
-        }
 	});
 };
 
@@ -85,7 +82,6 @@ exports.upload = (req, res) => {
     }
 
     req.files.upload.mv(`${path.goalFiles}${req.files.upload.name}`, (err) => {
-        if (err) { return res.status(500).send(err); }
-        res.send("File uploaded!");
+        if (err) { return res.status(500).send(err) }
     });
 };
