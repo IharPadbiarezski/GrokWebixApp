@@ -3,7 +3,13 @@ import {JetView, plugins} from "webix-jet";
 export default class TopView extends JetView {
 	config() {
 		let header = {
+<<<<<<< HEAD
+			type: "header",
+			template: this.app.config.name,
+			css: "webix_header app_header"
+=======
 			type: "header", template: this.app.config.name, css: "webix_header app_header"
+>>>>>>> master
 		};
 
 		let menu = {
@@ -17,7 +23,11 @@ export default class TopView extends JetView {
 			data: [
 				{value: "Users", id: "users", icon: "wxi-columns"},
 				{value: "Info", id: "info", icon: "wxi-pencil"},
+<<<<<<< HEAD
+				{value: "List", id: "usersAddition", icon: "wxi-dots"},
+=======
 				{value: "List", id: "userdata", icon: "wxi-dots"},
+>>>>>>> master
 				{value: "Form", id: "form", icon: "wxi-drag"}
 			]
 		};
