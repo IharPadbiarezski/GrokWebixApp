@@ -77,14 +77,10 @@ export default class UsersWindow extends JetView {
 					{}
 				],
 				rules: {
-<<<<<<< HEAD
 					name: webix.rules.isNotEmpty,
 					gender: webix.rules.isNotEmpty,
 					balance: webix.rules.isNumber,
 					company: webix.rules.isNotEmpty
-=======
-					$all: webix.rules.isNotEmpty
->>>>>>> master
 				}
 			}
 		};

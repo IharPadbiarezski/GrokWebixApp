@@ -2,10 +2,4 @@
 codebase/
 node_modules/
 *.log
-<<<<<<< HEAD
 dist/
-=======
-dist/
-server/config/db.js
-server/
->>>>>>> master

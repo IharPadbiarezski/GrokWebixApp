@@ -8,11 +8,7 @@ export default class UsersTable extends JetView {
 	config() {
 		return {
 			view: "datatable",
-<<<<<<< HEAD
 			scroll: "y",
-=======
-			scroll: "auto",
->>>>>>> master
 			columns: [
 				CommonColumns.getCheckBoxColumn("isActive", "Access", "Available", "Unavailable"),
 				{

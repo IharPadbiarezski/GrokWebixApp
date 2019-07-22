@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import {JetView} from "webix-jet";
 import {genders} from "../models/genders";
 import {users} from "../models/users";
@@ -276,8 +275,3 @@ export default class ContactForm extends JetView {
 		this.form.clearValidation();
 	}
 }
-=======
-export default {
-	template: "Place for Form Screen", css: "webix_shadow_medium app_start"
-};
->>>>>>> master
