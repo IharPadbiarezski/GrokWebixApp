@@ -1,5 +1,5 @@
 import {JetView} from "webix-jet";
-import {info} from "../models/info";
+import {urls} from "../config/urls";
 
 export default class UsersTable extends JetView {
 	config() {
@@ -8,47 +8,46 @@ export default class UsersTable extends JetView {
 			scroll: "y",
 			editable: true,
 			editaction: "dblclick",
+			datafetch: 20,
+			url: urls.info,
+			save: `rest->${urls.info}`,
 			columns: [
 				{
 					id: "song",
 					header: "Song",
 					fillspace: true,
 					editor: "text",
-					sort: "string"
+					sort: "server"
 				},
 				{
 					id: "car",
 					header: "Car",
 					fillspace: true,
 					editor: "text",
-					sort: "string"
+					sort: "server"
 				},
 				{
 					id: "book",
 					header: "Book",
 					fillspace: true,
 					editor: "text",
-					sort: "string"
+					sort: "server"
 				},
 				{
 					id: "movie",
 					header: "Movie",
 					fillspace: true,
 					editor: "text",
-					sort: "string"
+					sort: "server"
 				},
 				{
 					id: "drink",
 					header: "Drink",
 					fillspace: true,
 					editor: "text",
-					sort: "string"
+					sort: "server"
 				}
 			]
 		};
-	}
-
-	init(view) {
-		view.sync(info);
 	}
 }
